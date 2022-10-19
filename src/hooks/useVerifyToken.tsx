@@ -6,17 +6,16 @@ const useVerifyToken = () => {
     const restoredToken = await getItemAsync('accessToken');
     if (!restoredToken) return null;
     try {
-      const { data: accessToken } = await axios.post(
-        '/auth/verify',
+      const { data } = await axios.post(
+        '/auth/verificar',
         {},
         { headers: { Authorization: `Bearer ${restoredToken}` } }
       );
-      return accessToken;
+      return data.accessToken;
     } catch (error: any) {
       if (error?.response?.status === 401) console.error('Usuario no autorizado');
       else if (error?.response?.status === 400)
-        console.error('Error al validar el token: ' + error?.response?.data?.message);
-      else if (error?.response?.status === 404) console.error('Usuario no encontrado');
+        console.error('Error al validar el token: ' + error?.response?.data?.error.message);
       else console.error(error);
     }
     return null;

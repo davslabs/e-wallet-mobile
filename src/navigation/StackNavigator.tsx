@@ -14,7 +14,6 @@ const StackNavigator = () => {
     refreshToken();
   }, [refreshToken]);
 
-  console.log(auth);
   if (isLoading) return <Splash />;
 
   return (
