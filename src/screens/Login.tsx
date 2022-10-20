@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 });
-function Login() {
+
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -46,6 +47,6 @@ function Login() {
       </View>
     </View>
   );
-}
+};
 
 export default Login;

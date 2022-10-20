@@ -9,12 +9,12 @@ const styles = StyleSheet.create({
   },
 });
 
-function Splash() {
+const Splash = () => {
   return (
     <View style={styles.container}>
       <Text>Loading...</Text>
     </View>
   );
-}
+};
 
 export default Splash;

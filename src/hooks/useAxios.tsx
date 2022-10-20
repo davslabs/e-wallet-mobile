@@ -8,7 +8,8 @@ const useAxiosPrivate = () => {
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config: any) => {
-        if (!config.headers['Authorization']) config.headers['Authorization'] = `Bearer ${auth?.accessToken}`;
+        // eslint-disable-next-line no-param-reassign
+        if (!config.headers.Authorization) config.headers.Authorization = `Bearer ${auth?.accessToken}`;
         return config;
       },
       (error: any) => Promise.reject(error),
