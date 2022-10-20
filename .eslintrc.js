@@ -36,7 +36,7 @@ module.exports = {
   globals: {
     Atomics: 'readonly'
   },
-  parser: '@babel/eslint-parser',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     sourceType: 'module'
   },
@@ -85,14 +85,8 @@ module.exports = {
     'no-useless-call': ['error'],
     'no-trailing-spaces': ['error'],
     'space-before-blocks': ['error', 'always'],
-    'no-unused-vars': [
-      'error',
-      {
-        varsIgnorePattern: unusedVarsIgnorePattern,
-        argsIgnorePattern: unusedVarsIgnorePattern,
-        caughtErrorsIgnorePattern: unusedVarsIgnorePattern
-      }
-    ],
+    'no-unused-vars': ['off'],
+    '@typescript-eslint/no-unused-vars': ['error'],
     'no-floating-decimal': ['error'],
     'comma-dangle': ['error', 'never'],
     'array-bracket-spacing': ['error', 'never'],

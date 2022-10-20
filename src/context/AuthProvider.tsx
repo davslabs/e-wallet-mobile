@@ -1,5 +1,5 @@
 import { setItemAsync } from 'expo-secure-store';
-import {createContext, useCallback, useMemo, useState} from 'react';
+import { createContext, useCallback, useMemo, useState } from 'react';
 import axios from '../api/axios';
 import useVerifyToken from '../hooks/useVerifyToken';
 
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }: any) => {
       },
       signUp: async (email: string, password: string) => {}
     }),
-    []
+    [verify, cleanState]
   );
 
   return <AuthContext.Provider value={{ auth, ...authContext, isLoading }}>{children}</AuthContext.Provider>;
