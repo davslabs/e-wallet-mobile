@@ -63,7 +63,6 @@ module.exports = {
     semi: ['error', 'always'],
     quotes: ['error', 'single', { avoidEscape: true }],
     curly: ['error', 'multi-or-nest', 'consistent'],
-    'linebreak-style': ['error', 'unix'],
     'no-duplicate-imports': [
       'error',
       {
