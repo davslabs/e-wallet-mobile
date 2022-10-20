@@ -11,5 +11,5 @@ module.exports = {
   quoteProps: 'as-needed',
   arrowParens: 'avoid',
   insertPragma: false,
-  parser: 'babel'
+  endOfLine: "auto"
 };

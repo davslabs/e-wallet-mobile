@@ -145,6 +145,12 @@ module.exports = {
     ],
     eqeqeq: 'error',
     'no-empty': 'error',
-    'react/react-in-jsx-scope': 'off'
+    'react/react-in-jsx-scope': 'off',
+    'prettier/prettier': [
+      'error',
+      {
+        'endOfLine': 'auto',
+      }
+    ]
   }
 };
