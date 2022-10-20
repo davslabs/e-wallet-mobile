@@ -4,13 +4,13 @@ import axios from '../api/axios';
 import useVerifyToken from '../hooks/useVerifyToken';
 
 export type AuthContextType = {
-    signIn: (email: string, password: string) => Promise<void>;
-    signOut: () => Promise<void>;
-    signUp: (email: string, password: string) => Promise<void>;
-    refreshToken: () => Promise<void>;
-    auth: any;
-    isLoading: boolean;
-}
+  signIn: (email: string, password: string) => Promise<void>;
+  signOut: () => Promise<void>;
+  signUp: (email: string, password: string) => Promise<void>;
+  refreshToken: () => Promise<void>;
+  auth: any;
+  isLoading: boolean;
+};
 
 const AuthContext = createContext({} as AuthContextType);
 
@@ -29,11 +29,11 @@ export const AuthProvider = ({ children }: any) => {
     () => ({
       signIn: async (email: string, password: string) => {
         const {
-          data: { accessToken }
+          data: { accessToken },
         } = await axios.post(
           '/auth/login',
           { email, password },
-          { headers: { 'Content-Type': 'application/json' }, withCredentials: true }
+          { headers: { 'Content-Type': 'application/json' }, withCredentials: true },
         );
 
         await setItemAsync('accessToken', accessToken);
@@ -43,21 +43,21 @@ export const AuthProvider = ({ children }: any) => {
         setIsLoading(false);
       },
       signOut: async () => {
-          await cleanState();
+        await cleanState();
       },
       refreshToken: async () => {
-          const accessToken = await verify();
-          if (accessToken) {
-                await setItemAsync('accessToken', accessToken);
-                setAuth({ accessToken, isLoggedIn: true });
-          } else {
-                await cleanState();
-          }
+        const accessToken = await verify();
+        if (accessToken) {
+          await setItemAsync('accessToken', accessToken);
+          setAuth({ accessToken, isLoggedIn: true });
+        } else {
+          await cleanState();
+        }
         setIsLoading(false);
       },
-      signUp: async (email: string, password: string) => {}
+      signUp: async (email: string, password: string) => {},
     }),
-    [verify, cleanState]
+    [verify, cleanState],
   );
 
   return <AuthContext.Provider value={{ auth, ...authContext, isLoading }}>{children}</AuthContext.Provider>;

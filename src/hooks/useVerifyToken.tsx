@@ -9,13 +9,13 @@ const useVerifyToken = () => {
       const { data } = await axios.post(
         '/auth/verificar',
         {},
-        { headers: { Authorization: `Bearer ${restoredToken}` } }
+        { headers: { Authorization: `Bearer ${restoredToken}` } },
       );
       return data.accessToken;
     } catch (error: any) {
       if (error?.response?.status === 401) console.error('Usuario no autorizado');
       else if (error?.response?.status === 400)
-        console.error('Error al validar el token: ' + error?.response?.data?.error.message);
+        console.error(`Error al validar el token: ${error?.response?.data?.error.message}`);
       else console.error(error);
     }
     return null;

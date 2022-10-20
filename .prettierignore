@@ -1,5 +1,2 @@
-package.json
-package-lock.json
-.branchlintrc.json
-tsconfig.json
-src/app.json
+/build
+/dist
