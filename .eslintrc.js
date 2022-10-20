@@ -21,7 +21,7 @@ module.exports = {
     es6: true
   },
   root: true,
-  plugins: ['react', 'module-resolver', '@typescript-eslint'],
+  plugins: ['react', 'module-resolver', '@typescript-eslint', 'prettier'],
   extends: [
     'universe/web',
     'universe/native',
@@ -31,7 +31,8 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:import/errors',
-    'plugin:import/warnings'
+    'plugin:import/warnings',
+    'prettier',
   ],
   globals: {
     Atomics: 'readonly'
