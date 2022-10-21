@@ -1,6 +1,6 @@
-import useAuth from 'hooks/useAuth';
 import React, { useState } from 'react';
 import { View, Button, TextInput, StyleSheet } from 'react-native';
+import useAuth from '../hooks/useAuth';
 
 const styles = StyleSheet.create({
   container: {

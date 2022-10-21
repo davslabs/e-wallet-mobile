@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import useAuth from 'hooks/useAuth';
 import { useEffect } from 'react';
-import Home from 'screens/Home';
-import Login from 'screens/Login';
-import Splash from 'screens/Splash';
+import useAuth from '../hooks/useAuth';
+import Home from '../screens/Home';
+import Login from '../screens/Login';
+import Splash from '../screens/Splash';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,8 +11,10 @@ const StackNavigator = () => {
   const { auth, refreshToken, isLoading } = useAuth();
 
   useEffect(() => {
-    refreshToken();
-  }, [refreshToken]);
+    if (isLoading) {
+      refreshToken();
+    }
+  }, [isLoading, refreshToken]);
 
   if (isLoading) return <Splash />;
 

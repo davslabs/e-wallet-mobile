@@ -23,24 +23,34 @@ export const AuthProvider = ({ children }: any) => {
     await setItemAsync('accessToken', '');
     await setItemAsync('refreshToken', '');
     setAuth({ isLoggedIn: false });
-  }, []);
+  }, [setAuth]);
 
   const authContext = useMemo(
     () => ({
       signIn: async (email: string, password: string) => {
-        const {
-          data: { accessToken },
-        } = await axios.post(
-          '/auth/login',
-          { email, password },
-          { headers: { 'Content-Type': 'application/json' }, withCredentials: true },
-        );
+        try {
+          if (!email || !password) throw new Error('Email y contraseña son requeridos');
 
-        await setItemAsync('accessToken', accessToken);
-        await setItemAsync('email', email);
+          const {
+            data: { accessToken },
+          } = await axios.post(
+            '/auth/login',
+            { email, password },
+            { headers: { 'Content-Type': 'application/json' }, withCredentials: true },
+          );
 
-        setAuth({ accessToken, email, isLoggedIn: true });
-        setIsLoading(false);
+          await setItemAsync('accessToken', accessToken);
+          await setItemAsync('email', email);
+
+          setAuth({ accessToken, email, isLoggedIn: true });
+          setIsLoading(false);
+        } catch (error: any) {
+          if (error?.response) {
+            console.error(`Error al iniciar sesión: ${error?.response?.data?.error.message}`);
+          } else {
+            console.error(error.message);
+          }
+        }
       },
       signOut: async () => {
         await cleanState();
