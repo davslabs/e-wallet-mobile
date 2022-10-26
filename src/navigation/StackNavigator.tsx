@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import Home from '../screens/Home';
 import Login from '../screens/Login';
+import Registrar from '../screens/Registrar';
 import Splash from '../screens/Splash';
 
 const Stack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ const StackNavigator = () => {
       ) : (
         <Stack.Screen name="Login" component={Login} />
       )}
+      <Stack.Screen name="Registrar" component={Registrar} />
     </Stack.Navigator>
   );
 };
