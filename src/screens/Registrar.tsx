@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Platform } from 'react-native';
-import { Center, Box, Heading, VStack, FormControl, Input, Button, Text } from 'native-base';
+import { Center, Box, Heading, VStack, FormControl, Input, Button } from 'native-base';
 import useAuth from '../hooks/useAuth';
 
 const Registrar = () => {
@@ -44,7 +44,7 @@ const Registrar = () => {
           }}
           fontWeight="semibold"
         >
-          Welcome
+          Registrar
         </Heading>
         <Heading
           mt="1"
@@ -55,7 +55,7 @@ const Registrar = () => {
           fontWeight="medium"
           size="xs"
         >
-          Sign up to continue!
+          Por favor, complete los siguientes datos
         </Heading>
         <VStack space={3} mt="5">
           <FormControl>
@@ -87,7 +87,7 @@ const Registrar = () => {
             colorScheme="indigo"
             onPress={() => signUp(nombre, email, fechaNacimiento, password, confirmarPassword)}
           >
-            Sign up
+            Registrar
           </Button>
         </VStack>
       </Box>
