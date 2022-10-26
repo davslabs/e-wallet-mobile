@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
-import { HStack, Text, Button } from 'native-base';
+import { HStack, Text, Button, Center } from 'native-base';
 import useAuth from '../hooks/useAuth';
 
 const styles = StyleSheet.create({
@@ -47,25 +47,29 @@ const Login = ( { navigation }) => {
         <Button onPress={() => signIn(email, password)}>Login</Button>
       </View>
       <HStack mt="6" justifyContent="center">
-        <Text
-          fontSize="sm"
-          color="coolGray.600"
-          _dark={{
-            color: 'warmGray.200',
-          }}
-        >
-          No tengo cuenta.{' '}
-        </Text>
-        <Button
-          colorScheme="indigo"
-          _text={{
-            fontWeight: 'medium',
-            fontSize: 'sm',
-          }}
-          onPress={() => navigation.navigate('Registrar')}
-        >
-          Registrar
-        </Button>
+        <Center>
+          <Text
+            fontSize="sm"
+            color="coolGray.600"
+            _dark={{
+              color: 'warmGray.200',
+            }}
+          >
+            No tengo cuenta.{' '}
+          </Text>
+        </Center>
+        <Center>
+          <Button
+            colorScheme="indigo"
+            _text={{
+              fontWeight: 'medium',
+              fontSize: 'sm',
+            }}
+            onPress={() => navigation.navigate('Registrar')}
+          >
+            Registrar
+          </Button>
+        </Center>
       </HStack>
     </View>
   );
