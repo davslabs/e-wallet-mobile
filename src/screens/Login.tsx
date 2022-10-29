@@ -1,51 +1,41 @@
 import React, { useState } from 'react';
-import { View, Button, TextInput, StyleSheet } from 'react-native';
+import { VStack, Box } from 'native-base';
 import useAuth from '../hooks/useAuth';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  inputControl: {
-    width: '80%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    padding: 5,
-    marginVertical: 10,
-  },
-  buttonControl: {
-    width: '80%',
-  },
-});
+import { ActionButton, FormInput, PressableIcon } from '../components/shared';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [showPassword, setShowPassword] = useState(false);
   const { signIn } = useAuth();
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.inputControl}
-        onChangeText={setEmail}
-        value={email}
-        placeholder="Email"
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.inputControl}
-        onChangeText={setPassword}
-        value={password}
-        placeholder="Password"
-        secureTextEntry
-      />
-      <View style={styles.buttonControl}>
-        <Button title="Login" onPress={() => signIn(email, password)} />
-      </View>
-    </View>
+    <Box style={{ justifyContent: 'center', flex: 1, alignItems: 'center' }}>
+      <VStack w="85%" space={4} alignItems="center">
+        <FormInput
+          label="Email"
+          placeholder="name@example.com"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <FormInput
+          label="Password"
+          placeholder="********"
+          type={showPassword ? 'text' : 'password'}
+          keyboardType="default"
+          value={password}
+          onChangeText={setPassword}
+          icon={
+            <PressableIcon
+              handlePress={() => setShowPassword(!showPassword)}
+              iconName={showPassword ? 'visibility-off' : 'visibility'}
+            />
+          }
+        />
+        <ActionButton text="Iniciar sesión" handlePress={() => signIn(email, password)} />
+      </VStack>
+    </Box>
   );
 };
 
