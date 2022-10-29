@@ -24,9 +24,11 @@ const StackNavigator = () => {
       {auth?.isLoggedIn ? (
         <Stack.Screen name="Home" component={Home} />
       ) : (
-        <Stack.Screen name="Login" component={Login} />
+        <>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Registrar" component={Registrar} />
+        </>
       )}
-      <Stack.Screen name="Registrar" component={Registrar} />
     </Stack.Navigator>
   );
 };

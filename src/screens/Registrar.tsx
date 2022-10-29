@@ -36,25 +36,10 @@ const Registrar = () => {
   return (
     <Center w="100%">
       <Box safeArea p="2" w="90%" maxW="290" py="8">
-        <Heading
-          size="lg"
-          color="coolGray.800"
-          _dark={{
-            color: 'warmGray.50',
-          }}
-          fontWeight="semibold"
-        >
+        <Heading size="lg" fontWeight="semibold">
           Registrar
         </Heading>
-        <Heading
-          mt="1"
-          color="coolGray.600"
-          _dark={{
-            color: 'warmGray.200',
-          }}
-          fontWeight="medium"
-          size="xs"
-        >
+        <Heading mt="1" fontWeight="medium" size="xs">
           Por favor, complete los siguientes datos
         </Heading>
         <VStack space={3} mt="5">
@@ -68,7 +53,7 @@ const Registrar = () => {
           </FormControl>
           <FormControl>
             <FormControl.Label>Fecha de nacimiento: {fechaNacimiento.toLocaleString()}</FormControl.Label>
-            <Button mt="2" colorScheme="indigo" onPress={showDatepicker}>
+            <Button mt="2" onPress={showDatepicker}>
               Mostrar fecha
             </Button>
             {show && (<DateTimePicker value={fechaNacimiento} mode={mode} is24Hour={true} onChange={onChange}
