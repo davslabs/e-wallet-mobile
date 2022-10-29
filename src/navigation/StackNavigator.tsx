@@ -20,7 +20,7 @@ const StackNavigator = () => {
   if (isLoading) return <Splash />;
 
   return (
-    <Stack.Navigator initialRouteName={auth?.isLoggedIn ? 'Home' : 'Login'}>
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={auth?.isLoggedIn ? 'Home' : 'Login'}>
       {auth?.isLoggedIn ? (
         <Stack.Screen name="Home" component={Home} />
       ) : (

@@ -1,13 +1,17 @@
+import { VStack, Box, Button, Text } from 'native-base';
 import React from 'react';
-import { Button, View } from 'react-native';
 import useAuth from '../hooks/useAuth';
 
 const Home = () => {
   const { signOut } = useAuth();
   return (
-    <View>
-      <Button title="Sign Out" onPress={signOut} />
-    </View>
+    <Box style={{ justifyContent: 'center', flex: 1, alignItems: 'center' }}>
+      <VStack>
+        <Button onPress={signOut}>
+          <Text color="white">{'Cerrar Sesión'.toUpperCase()}</Text>
+        </Button>
+      </VStack>
+    </Box>
   );
 };
 
