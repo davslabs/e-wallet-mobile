@@ -1,3 +1,3 @@
-import MyCards from './MyCards';
+import CardsModule from './CardsModule';
 
-export default MyCards;
+export default CardsModule;

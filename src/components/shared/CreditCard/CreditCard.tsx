@@ -12,31 +12,6 @@ interface CreditCardProps {
   style?: StyleProp<ViewStyle>;
 }
 
-const CreditCard = ({ cardHolder, dueDate, cardSuffix, bgColor, type, style }: CreditCardProps) => {
-  const dot = [styles.dot, { backgroundColor: styles.text.color }];
-  return (
-    <VStack shadow={7} style={[styles.card, { backgroundColor: bgColor }, style]}>
-      {type === 'visa' ? <VisaIcon /> : <MasterCardIcon />}
-      <HStack style={styles.cardNumberContainer}>
-        {[...Array(3)].map((e, i) => {
-          return (
-            <HStack key={i} style={styles.cardNumberPart}>
-              {[...Array(4)].map((e, i) => {
-                return <HStack key={i} style={dot} />;
-              })}
-            </HStack>
-          );
-        })}
-        <Text style={styles.text}>{cardSuffix}</Text>
-      </HStack>
-      <HStack style={styles.footerContainer}>
-        <Text style={styles.text}>{cardHolder}</Text>
-        <Text style={styles.text}>{dueDate}</Text>
-      </HStack>
-    </VStack>
-  );
-};
-
 const styles = StyleSheet.create({
   card: {
     padding: 24,
@@ -71,5 +46,30 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
 });
+
+const CreditCard = ({ cardHolder, dueDate, cardSuffix, bgColor, type, style }: CreditCardProps) => {
+  const dot = [styles.dot, { backgroundColor: styles.text.color }];
+  return (
+    <VStack shadow={7} style={[styles.card, { backgroundColor: bgColor }, style]}>
+      {type === 'visa' ? <VisaIcon /> : <MasterCardIcon />}
+      <HStack style={styles.cardNumberContainer}>
+        {[...Array(3)].map((e, i) => {
+          return (
+            <HStack key={i} style={styles.cardNumberPart}>
+              {[...Array(4)].map((e, i) => {
+                return <HStack key={i} style={dot} />;
+              })}
+            </HStack>
+          );
+        })}
+        <Text style={styles.text}>{cardSuffix}</Text>
+      </HStack>
+      <HStack style={styles.footerContainer}>
+        <Text style={styles.text}>{cardHolder}</Text>
+        <Text style={styles.text}>{dueDate}</Text>
+      </HStack>
+    </VStack>
+  );
+};
 
 export default CreditCard;
