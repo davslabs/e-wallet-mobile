@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormControl, Text, Input } from 'native-base';
-import { KeyboardTypeOptions } from 'react-native';
+import { KeyboardTypeOptions, StyleProp, ViewStyle } from 'react-native';
 import PressableIcon from './PressableIcon';
 
 interface FormInputProps {
@@ -9,11 +9,22 @@ interface FormInputProps {
   keyboardType: KeyboardTypeOptions;
   value: string;
   onChangeText: (...args: any[]) => void;
+  disabled?: boolean | undefined;
   icon?: React.ReactElement<typeof PressableIcon> | undefined;
   type?: 'text' | 'password' | undefined;
+  style?: StyleProp<ViewStyle>;
 }
 
-const FormInput = ({ label, placeholder, keyboardType, value, icon, type, onChangeText }: FormInputProps) => {
+const FormInput = ({
+  label,
+  placeholder,
+  keyboardType,
+  value,
+  icon,
+  type,
+  disabled = false,
+  onChangeText,
+}: FormInputProps) => {
   return (
     <FormControl>
       <FormControl.Label>
@@ -26,6 +37,7 @@ const FormInput = ({ label, placeholder, keyboardType, value, icon, type, onChan
         keyboardType={keyboardType}
         type={type ? type : 'text'}
         InputRightElement={icon}
+        isDisabled={disabled}
       />
     </FormControl>
   );
