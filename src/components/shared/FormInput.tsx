@@ -12,18 +12,10 @@ interface FormInputProps {
   icon?: React.ReactElement<typeof PressableIcon> | undefined;
   type?: 'text' | 'password' | undefined;
   iconLeft?: React.ReactElement<typeof Icon> | undefined;
+  helpText?: string | undefined;
 }
 
-const FormInput = ({
-  label,
-  placeholder,
-  keyboardType,
-  value,
-  icon,
-  type,
-  onChangeText,
-  iconLeft,
-}: FormInputProps) => {
+const FormInput = ({ label, placeholder, keyboardType, value, icon, type, onChangeText, iconLeft, helpText }: FormInputProps) => {
   return (
     <FormControl>
       <FormControl.Label>
@@ -38,6 +30,13 @@ const FormInput = ({
         InputRightElement={icon}
         InputLeftElement={iconLeft}
       />
+      <FormControl.HelperText
+        _text={{
+          fontSize: 'xs',
+        }}
+      >
+        {helpText}
+      </FormControl.HelperText>
     </FormControl>
   );
 };

@@ -66,6 +66,13 @@ const SignUp = () => {
             <FormControl.Label>Fecha de nacimiento: {fechaNacimiento.toLocaleString()}</FormControl.Label>
             <ActionButton text="Mostrar Fecha" handlePress={showDatepicker} />
             {show && <DateTimePicker value={fechaNacimiento} is24Hour onChange={onChange} />}
+            <FormControl.HelperText
+              _text={{
+                fontSize: 'xs',
+              }}
+            >
+              Deberá ser mayor a 18 años para registrarse.
+            </FormControl.HelperText>
           </FormControl>
           <FormInput
             label="Contraseña"
