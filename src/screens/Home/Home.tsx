@@ -1,12 +1,23 @@
-import { Container } from 'native-base';
+import { Center, Container } from 'native-base';
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import CardsModule from './modules';
 
-const Home = () => {
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 50,
+  },
+});
+
+const Home = ({ navigation }: any) => {
+  const goToMyCards = () => {
+    navigation.navigate('MyCards');
+  };
+
   return (
-    <Container marginTop={10} marginLeft={10}>
-      <CardsModule />
-    </Container>
+    <Center style={styles.container}>
+      <CardsModule handlePress={goToMyCards} />
+    </Center>
   );
 };
 

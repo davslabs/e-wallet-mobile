@@ -14,29 +14,29 @@ const styles = StyleSheet.create({
   },
 });
 
-const CardsModule = () => {
+interface CardsModuleProps {
+  handlePress: () => void;
+}
+
+const CardsModule = ({ handlePress }: CardsModuleProps) => {
   return (
     <VStack space={5}>
       <Box>
         <Text style={styles.title}>Mis tarjetas</Text>
       </Box>
       <HStack>
+        {/* <Box>
+          <EmptyCreditCard handlePress={handlePress} />
+        </Box> */}
         <Box>
-          <EmptyCreditCard
-            handlePress={() => {
-              console.log('Pressed');
-            }}
-          />
+          <CreditCard cardHolder="John Doe" dueDate="12/2021" cardSuffix="3456" bgColor="#DAA520" type="visa" />
         </Box>
-        {/* <Box> */}
-        {/*  <CreditCard cardHolder="John Doe" dueDate="12/2021" cardSuffix="3456" bgColor="#DAA520" type="visa" /> */}
-        {/* </Box> */}
-        {/* <Box ml={-280} mt={5}> */}
-        {/*  <CreditCard cardHolder="John Doe" dueDate="12/2021" cardSuffix="3456" bgColor="blue" type="mastercard" /> */}
-        {/* </Box> */}
-        {/* <Box ml={-270} mt={10}> */}
-        {/*  <CreditCard cardHolder="John Doe" dueDate="12/2021" cardSuffix="3456" bgColor="grey" type="mastercard" /> */}
-        {/* </Box> */}
+        <Box ml={-280} mt={5}>
+          <CreditCard cardHolder="John Doe" dueDate="12/2021" cardSuffix="3456" bgColor="blue" type="mastercard" />
+        </Box>
+        <Box ml={-270} mt={10}>
+          <CreditCard cardHolder="John Doe" dueDate="12/2021" cardSuffix="3456" bgColor="grey" type="mastercard" />
+        </Box>
       </HStack>
       <HStack justifyContent="space-between">
         <Text style={styles.textButton}>Ver mis tarjetas</Text>

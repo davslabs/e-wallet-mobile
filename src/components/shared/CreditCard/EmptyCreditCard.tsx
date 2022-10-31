@@ -1,10 +1,11 @@
 import React from 'react';
 import { HStack, Pressable, Text, VStack } from 'native-base';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
 interface EmptyCreditCardProps {
   handlePress: (...args: any[]) => void;
+  style?: StyleProp<ViewStyle>;
 }
 
 const styles = StyleSheet.create({
@@ -34,10 +35,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const EmptyCreditCard = ({ handlePress }: EmptyCreditCardProps) => {
+const EmptyCreditCard = ({ handlePress, style }: EmptyCreditCardProps) => {
   return (
     <Pressable onPress={handlePress}>
-      <VStack shadow={7} style={[styles.card, { backgroundColor: '#EDBA96' }]}>
+      <VStack shadow={7} style={[styles.card, { backgroundColor: '#EDBA96' }, style]}>
         <HStack style={[styles.cardContainer, { justifyContent: 'space-around' }]}>
           <Text style={styles.text}>Agregar tarjeta</Text>
           <MaterialIcons name="add-circle-outline" size={24} color="#FCF4EE" />

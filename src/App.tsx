@@ -14,13 +14,13 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <AuthProvider>
-      <SafeAreaView style={styles.container}>
-        <NativeBaseProvider theme={theme}>
-          <NavigationContainer>
+      <NativeBaseProvider theme={theme}>
+        <NavigationContainer>
+          <SafeAreaView style={styles.container}>
             <StackNavigator />
-          </NavigationContainer>
-        </NativeBaseProvider>
-      </SafeAreaView>
+          </SafeAreaView>
+        </NavigationContainer>
+      </NativeBaseProvider>
     </AuthProvider>
   );
 }
