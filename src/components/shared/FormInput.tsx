@@ -11,9 +11,19 @@ interface FormInputProps {
   onChangeText: (...args: any[]) => void;
   icon?: React.ReactElement<typeof PressableIcon> | undefined;
   type?: 'text' | 'password' | undefined;
+  iconLeft?: React.ReactElement<typeof Icon> | undefined;
 }
 
-const FormInput = ({ label, placeholder, keyboardType, value, icon, type, onChangeText }: FormInputProps) => {
+const FormInput = ({
+  label,
+  placeholder,
+  keyboardType,
+  value,
+  icon,
+  type,
+  onChangeText,
+  iconLeft,
+}: FormInputProps) => {
   return (
     <FormControl>
       <FormControl.Label>
@@ -26,6 +36,7 @@ const FormInput = ({ label, placeholder, keyboardType, value, icon, type, onChan
         keyboardType={keyboardType}
         type={type ? type : 'text'}
         InputRightElement={icon}
+        InputLeftElement={iconLeft}
       />
     </FormControl>
   );

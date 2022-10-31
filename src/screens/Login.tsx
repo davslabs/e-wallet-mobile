@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { VStack, Box, Text, Button } from 'native-base';
+import { VStack, Box, Text } from 'native-base';
 import useAuth from '../hooks/useAuth';
 import { ActionButton, FormInput, PressableIcon } from '../components/shared';
 

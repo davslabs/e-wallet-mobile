@@ -79,6 +79,7 @@ export const AuthProvider = ({ children }: any) => {
         confirmarPassword: string,
       ) => {
         try {
+          if (!nombre) throw new Error('Se requiere ingresar un nombre');
           if (!email || !password) throw new Error('Email y contraseña son requeridos');
           if (password !== confirmarPassword) throw new Error('Las contraseñas son distintas');
 

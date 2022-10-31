@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { Platform } from 'react-native';
-import { Center, Box, Heading, VStack, FormControl, Input, Button } from 'native-base';
+import { Center, Box, Heading, VStack, FormControl, Icon } from 'native-base';
 import useAuth from '../hooks/useAuth';
 import { ActionButton, FormInput, PressableIcon } from '../components/shared';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -52,6 +53,7 @@ const SignUp = () => {
             keyboardType="default"
             value={nombre}
             onChangeText={setNombre}
+            iconLeft={<Icon as={<MaterialIcons name="person" size={5} mr="2" color="muted.400" />} />}
           />
           <FormInput
             label="Email"
