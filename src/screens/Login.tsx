@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Login = ( { navigation }: any ) => {
+const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -54,26 +54,17 @@ const Login = ( { navigation }: any ) => {
         />
         <ActionButton text="Iniciar sesión" handlePress={() => signIn(email, password)} />
       </VStack>
-      <VStack mt="6" justifyContent="center">
-          <Text
-            fontSize="sm"
-            color="coolGray.600"
-            _dark={{
-              color: 'warmGray.200',
-            }}
-          >
-            No tengo cuenta.{' '}
-          </Text>
-          <Button
-            colorScheme="indigo"
-            _text={{
-              fontWeight: 'medium',
-              fontSize: 'sm',
-            }}
-            onPress={() => navigation.navigate('Registrar')}
-          >
-            Registrar
-          </Button>
+      <VStack mt="6" w="35%" space={4} alignItems="center">
+        <Text
+          fontSize="sm"
+          color="coolGray.600"
+          _dark={{
+            color: 'warmGray.200',
+          }}
+        >
+          No tengo cuenta.{' '}
+        </Text>
+        <ActionButton text="Registrar" handlePress={() => navigation.navigate('SignUp')} />
       </VStack>
     </Box>
   );
