@@ -77,54 +77,12 @@ const SignUp = () => {
             onChangeText={setEmail}
             iconLeft={<Icon as={<MaterialIcons name="alternate-email" />} size={5} ml="2" color="muted.400" />}
           />
-          {/* <FormInput
-            label="Fecha"
-            placeholder="2022-10-11"
-            value={moment(fechaNacimiento).toString()}
-            keyboardType="default"
-            onChangeText={setFechaNacimiento}
-            disabled
-            icon={
-              <Button ml={2} onPress={showDatepicker}>
-                <Icon as={<MaterialIcons name="date-range" />} color="white" />
-              </Button>
-            }
-          /> */}
-          {/* <FormInput
-            label="Fecha"
-            placeholder="2022-10-11"
-            value={moment(fechaNacimiento).toString()}
-            keyboardType="default"
-            onChangeText={setFechaNacimiento}
-            disabled
-            groupedIcon={
-              <InputRightAddon
-                backgroundColor="primary.500"
-                children={
-                  <PressableIcon
-                    handlePress={() => showDatepicker()}
-                    iconName="date-range"
-                    size={5}
-                    ml="2"
-                    color="white"
-                  />
-                }
-              />
-            }
-          /> */}
-          {/* <FormInput
-            label="Fecha de nacimiento"
-            placeholder={fechaNacimiento.toString()}
-            keyboardType="default"
-            value={fechaNacimiento.toString()}
-            onChangeText={setFechaNacimiento}
-          /> */}
           <SideButtonInput
             label="Fecha de nacimiento"
-            placeholder={moment.HTML5_FMT.DATE}
             keyboardType="default"
             value={fechaNacimiento.toLocaleDateString()}
             onChangeText={setFechaNacimiento}
+            helpText="Deberá ser mayor a 18 años para registrarse."
             sideButton={
               <Button h={10} m="0" onPress={showDatepicker}>
                 {show && <DateTimePicker value={fechaNacimiento} is24Hour onChange={onChange} />}
@@ -132,42 +90,6 @@ const SignUp = () => {
               </Button>
             }
           />
-          <FormControl>
-            <FormControl.Label>Fecha de nacimiento</FormControl.Label>
-            <Stack alignItems="center" w="100%">
-              <InputGroup>
-                <Input
-                  w={{
-                    base: '84%',
-                    md: '100%',
-                  }}
-                  isDisabled
-                  value={moment(fechaNacimiento).format('LL')}
-                  onChange={setFechaNacimiento}
-                />
-                <InputRightAddon
-                  bg="primary.600"
-                  w="16%"
-                  p="0"
-                  children={
-                    <Button h={10} m="0" onPress={showDatepicker}>
-                      {show && <DateTimePicker value={fechaNacimiento} is24Hour onChange={onChange} />}
-                      <Icon as={<MaterialIcons name="date-range" />} color="white" />
-                    </Button>
-                  }
-                />
-              </InputGroup>
-            </Stack>
-            {/* <ActionButton text="Mostrar Fecha" handlePress={showDatepicker} />
-            {show && <DateTimePicker value={fechaNacimiento} is24Hour onChange={onChange} />} */}
-            <FormControl.HelperText
-              _text={{
-                fontSize: 'xs',
-              }}
-            >
-              Deberá ser mayor a 18 años para registrarse.
-            </FormControl.HelperText>
-          </FormControl>
           <FormInput
             label="Contraseña"
             placeholder="********"
