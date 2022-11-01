@@ -12,10 +12,13 @@ import {
   Input,
   InputRightAddon,
   Button,
+  Stack,
 } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
+import moment from 'moment';
 import useAuth from '../hooks/useAuth';
 import { ActionButton, FormInput, PressableIcon } from '../components/shared';
+import SideButtonInput from '../components/shared/SideButtonInput';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -74,36 +77,89 @@ const SignUp = () => {
             onChangeText={setEmail}
             iconLeft={<Icon as={<MaterialIcons name="alternate-email" />} size={5} ml="2" color="muted.400" />}
           />
-          <FormInput
+          {/* <FormInput
             label="Fecha"
             placeholder="2022-10-11"
-            value={fechaNacimiento.toString()}
+            value={moment(fechaNacimiento).toString()}
             keyboardType="default"
             onChangeText={setFechaNacimiento}
             disabled
             icon={
-              <Button ml={2} size="sm">
-                <Icon as={<MaterialIcons name="date-range" />} size="sm" color="white" />
+              <Button ml={2} onPress={showDatepicker}>
+                <Icon as={<MaterialIcons name="date-range" />} color="white" />
               </Button>
             }
-          />
-          <FormInput
+          /> */}
+          {/* <FormInput
+            label="Fecha"
+            placeholder="2022-10-11"
+            value={moment(fechaNacimiento).toString()}
+            keyboardType="default"
+            onChangeText={setFechaNacimiento}
+            disabled
+            groupedIcon={
+              <InputRightAddon
+                backgroundColor="primary.500"
+                children={
+                  <PressableIcon
+                    handlePress={() => showDatepicker()}
+                    iconName="date-range"
+                    size={5}
+                    ml="2"
+                    color="white"
+                  />
+                }
+              />
+            }
+          /> */}
+          {/* <FormInput
             label="Fecha de nacimiento"
-            placeholder={fechaNacimiento.getDate().toLocaleString()}
+            placeholder={fechaNacimiento.toString()}
             keyboardType="default"
             value={fechaNacimiento.toString()}
             onChangeText={setFechaNacimiento}
+          /> */}
+          <SideButtonInput
+            label="Fecha de nacimiento"
+            placeholder={moment.HTML5_FMT.DATE}
+            keyboardType="default"
+            value={fechaNacimiento.toLocaleDateString()}
+            onChangeText={setFechaNacimiento}
+            sideButton={
+              <Button h={10} m="0" onPress={showDatepicker}>
+                {show && <DateTimePicker value={fechaNacimiento} is24Hour onChange={onChange} />}
+                <Icon as={<MaterialIcons name="date-range" />} color="white" />
+              </Button>
+            }
           />
           <FormControl>
-            <FormControl.Label>Fecha de nacimiento: {fechaNacimiento.toLocaleString()}</FormControl.Label>
-            <InputGroup>
-              <Input w="90%">SMACK MY ASS LIKE A DRUM</Input>
-              <InputRightAddon
-                children={<Icon as={<MaterialIcons name="person" />} size={5} ml="2" color="muted.400" />}
-              />
-            </InputGroup>
-            <ActionButton text="Mostrar Fecha" handlePress={showDatepicker} />
-            {show && <DateTimePicker value={fechaNacimiento} is24Hour onChange={onChange} />}
+            <FormControl.Label>Fecha de nacimiento</FormControl.Label>
+            <Stack alignItems="center" w="100%">
+              <InputGroup>
+                <Input
+                  w={{
+                    base: '84%',
+                    md: '100%',
+                  }}
+                  isDisabled
+                  value={moment(fechaNacimiento).format('LL')}
+                  onChange={setFechaNacimiento}
+                />
+                <InputRightAddon
+                  bg="primary.600"
+                  w="16%"
+                  p="0"
+                  children={
+                    <Button h={10} m="0" onPress={showDatepicker}>
+                      {show && <DateTimePicker value={fechaNacimiento} is24Hour onChange={onChange} />}
+                      <Icon as={<MaterialIcons name="date-range" />} color="white" />
+                    </Button>
+                  }
+                />
+              </InputGroup>
+            </Stack>
+            {/* <ActionButton text="Mostrar Fecha" handlePress={showDatepicker} />
+            {show && <DateTimePicker value={fechaNacimiento} is24Hour onChange={onChange} />} */}
             <FormControl.HelperText
               _text={{
                 fontSize: 'xs',

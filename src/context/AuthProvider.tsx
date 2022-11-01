@@ -100,11 +100,7 @@ export const AuthProvider = ({ children }: any) => {
     [verify, cleanState],
   );
 
-  return (
-    <AuthContext.Provider value={{ auth: { isLoggedIn: true }, ...authContext, isLoading }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ auth, ...authContext, isLoading }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContext;
