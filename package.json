@@ -17,8 +17,8 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "@react-native-community/datetimepicker": "^6.5.2",
     "@expo/vector-icons": "^13.0.0",
+    "@react-native-community/datetimepicker": "6.2.0",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
     "axios": "^1.1.3",
