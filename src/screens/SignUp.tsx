@@ -86,7 +86,7 @@ const SignUp = () => {
             sideButton={
               <Button h={10} m="0" onPress={showDatepicker}>
                 {show && <DateTimePicker value={fechaNacimiento} is24Hour onChange={onChange} />}
-                <Icon as={<MaterialIcons name="date-range" />} color="white" />
+                <Icon as={<MaterialIcons name="date-range" />} size={5} color="white" />
               </Button>
             }
           />
@@ -97,6 +97,7 @@ const SignUp = () => {
             keyboardType="default"
             value={password}
             onChangeText={setPassword}
+            helpText="La contraseña tendrá que tener al menos 8 caracteres."
             icon={
               <PressableIcon
                 handlePress={() => setShowPassword(!showPassword)}

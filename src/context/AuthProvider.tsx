@@ -78,9 +78,11 @@ export const AuthProvider = ({ children }: any) => {
         password: string,
         confirmarPassword: string,
       ) => {
+        const PASSWORD_MIN_LENGTH = 8;
         try {
           if (!nombre) throw new Error('Se requiere ingresar un nombre');
           if (!email || !password) throw new Error('Email y contraseña son requeridos');
+          if (password.length < PASSWORD_MIN_LENGTH) throw new Error('La contraseña es demasiado corta.');
           if (password !== confirmarPassword) throw new Error('Las contraseñas son distintas');
 
           await axios.post(
