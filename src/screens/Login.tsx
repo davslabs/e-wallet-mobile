@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { VStack, Box, Text } from 'native-base';
+import { VStack, Box, Text, Icon } from 'native-base';
+import { MaterialIcons } from '@expo/vector-icons';
 import useAuth from '../hooks/useAuth';
 import { ActionButton, FormInput, PressableIcon } from '../components/shared';
 
@@ -37,6 +38,7 @@ const Login = ({ navigation }: any) => {
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
+          iconLeft={<Icon as={<MaterialIcons name="alternate-email" />} size={5} ml="2" color="muted.400" />}
         />
         <FormInput
           label="Password"

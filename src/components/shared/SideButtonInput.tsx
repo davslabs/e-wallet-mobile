@@ -37,7 +37,6 @@ const SideButtonInput = ({
             isDisabled
             w={{
               base: '84%',
-              md: '100%',
             }}
           />
           <InputRightAddon bg="primary.600" w="16%" p="0" children={sideButton} />
