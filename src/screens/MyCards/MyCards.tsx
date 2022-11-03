@@ -1,7 +1,8 @@
-import { EmptyCreditCard, MiniCreditCard } from '../../components';
-import React from 'react';
-import { Center, Box, ScrollView } from 'native-base';
+import { EmptyCreditCard, FormInput, MiniCreditCard } from '../../components';
+import React, { useState } from 'react';
+import { Center, Box, ScrollView, Fab, Icon, HStack, Button } from 'native-base';
 import { StyleSheet } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,6 +11,7 @@ const styles = StyleSheet.create({
 });
 
 const MyCards = ({ navigation }: any) => {
+  const [fecha, setFecha] = useState('');
   return (
     <Center style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -28,9 +30,6 @@ const MyCards = ({ navigation }: any) => {
           </Box>
           <Box mt={5}>
             <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="teal" type="mastercard" />
-          </Box>
-          <Box mt={5} mb={5}>
-            <EmptyCreditCard style={{ width: 360 }} handlePress={() => {}} />
           </Box>
         </Center>
       </ScrollView>

@@ -1,6 +1,42 @@
 import { extendTheme } from 'native-base';
 
 const theme = extendTheme({
+  fontConfig: {
+    QuickSand: {
+      100: {
+        normal: 'QuickSand-Light',
+      },
+      200: {
+        normal: 'QuickSand-Light',
+      },
+      300: {
+        normal: 'QuickSand-Light',
+      },
+      400: {
+        normal: 'QuickSand',
+      },
+      500: {
+        normal: 'QuickSand-Medium',
+      },
+      600: {
+        normal: 'QuickSand-Medium',
+      },
+      700: {
+        normal: 'QuickSand-Bold',
+      },
+      800: {
+        normal: 'QuickSand-Bold',
+      },
+      900: {
+        normal: 'QuickSand-Bold',
+      },
+    },
+  },
+  fonts: {
+    heading: 'QuickSand',
+    body: 'QuickSand',
+    mono: 'QuickSand',
+  },
   colors: {
     primary: {
       50: '#FCF4EE',
