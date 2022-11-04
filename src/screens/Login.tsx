@@ -32,7 +32,15 @@ const Login = ({ navigation }: any) => {
   return (
     <ScrollView>
       <Center>
-        <Box safeArea maxW="90%" w="90%" minW="290" justifyContent="center" py="8" alignItems="center">
+        <Box
+          safeArea
+          maxW={['90%', '90%', '50%']}
+          w="90%"
+          minW="290"
+          justifyContent="center"
+          py="8"
+          alignItems="center"
+        >
           <VStack w="85%" space={4} mt="5" justifyContent="center">
             <FormInput
               label="Email"

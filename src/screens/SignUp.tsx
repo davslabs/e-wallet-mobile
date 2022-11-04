@@ -42,7 +42,7 @@ const SignUp = () => {
   return (
     <ScrollView>
       <Center w="100%">
-        <Box safeArea p="2" maxW="90%" minW="290" py="8" justifyContent="center">
+        <Box safeArea p="2" maxW={['90%', '90%', '50%']} minW="290" justifyContent="center">
           <Heading size="lg" fontWeight="semibold">
             Registrar
           </Heading>

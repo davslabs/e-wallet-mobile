@@ -1,4 +1,4 @@
-import useAuth from 'hooks/useAuth';
+import useAuth from './useAuth';
 import { useEffect } from 'react';
 import { axiosPrivate } from '../api/axios';
 
