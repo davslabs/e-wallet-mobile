@@ -9,8 +9,9 @@ import Login from '../screens/Login';
 import Splash from '../screens/Splash';
 import { Header } from '../components';
 import { useMovements } from '../hooks/useMovements';
+import { StackNavigatorParamsList } from 'types/StackNavigatorParamsList';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<StackNavigatorParamsList>();
 
 const StackNavigator = () => {
   const { auth, refreshToken, isLoading } = useAuth();

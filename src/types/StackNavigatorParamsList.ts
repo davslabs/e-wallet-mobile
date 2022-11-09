@@ -1,5 +1,10 @@
 import { Movement as MovementType } from '../types/Movement';
 
 export type StackNavigatorParamsList = {
-  Movements: { movements: MovementType[] };
+  Home: undefined,
+  MyCards: undefined,
+  Login: undefined,
+  Movements: {
+    movements: MovementType[]
+  };
 };
