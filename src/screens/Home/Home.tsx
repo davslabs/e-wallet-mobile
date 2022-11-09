@@ -17,16 +17,19 @@ const styles = StyleSheet.create({
 
 const Home = ({ navigation }: any) => {
   const { cards } = useCreditCards();
-  const { movements } = useMovements({maxItems: 3});
+  const { movements } = useMovements();
   const { signOut, auth } = useAuth();
   const goToMyCards = () => {
     navigation.navigate('MyCards');
+  };
+  const goToMyMovements = () => {
+    navigation.navigate('Movements', { movements });
   };
 
   return (
     <Center style={styles.container}>
       {cards ? <CardsModule cards={cards} handlePress={goToMyCards} /> : <Splash />}
-      {movements ? <MovementsModule movements={movements} handlePress={goToMyCards} />: <Splash />}
+      {movements ? <MovementsModule movements={movements} handlePress={goToMyMovements} />: <Splash />}
       <ActionButton handlePress={signOut} text={`Adios ${auth.email}`} />
     </Center>
   );
