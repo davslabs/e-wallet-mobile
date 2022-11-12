@@ -84,18 +84,19 @@ export const AuthProvider = ({ children }: any) => {
           if (!email || !password) throw new Error('Email y contraseña son requeridos');
           if (password.length < PASSWORD_MIN_LENGTH) throw new Error('La contraseña es demasiado corta.');
           if (password !== confirmarPassword) throw new Error('Las contraseñas son distintas');
-
           await axios.post(
             '/auth/registrar',
             { nombre, email, fechaNacimiento, password },
             { headers: { 'Content-Type': 'application/json' }, withCredentials: true },
           );
+          return true;
         } catch (error: any) {
           if (error?.response) {
             console.error(`Error al registrar: ${error?.response?.data?.error.message}`);
           } else {
             console.error(error.message);
           }
+          return false;
         }
       },
     }),

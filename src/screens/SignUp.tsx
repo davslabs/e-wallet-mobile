@@ -3,7 +3,6 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import { Platform } from 'react-native';
 import { Center, Box, Heading, VStack, Icon, Button, ScrollView } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
-import moment from 'moment';
 import useAuth from '../hooks/useAuth';
 import { ActionButton, FormInput, PressableIcon } from '../components/shared';
 import SideButtonInput from '../components/shared/SideButtonInput';
@@ -38,6 +37,7 @@ const SignUp = () => {
   };
 
   const { signUp } = useAuth();
+  const { signIn } = useAuth();
 
   return (
     <ScrollView>
@@ -110,7 +110,16 @@ const SignUp = () => {
             />
             <ActionButton
               text="Registrar"
-              handlePress={() => signUp(nombre, email, fechaNacimiento, password, confirmarPassword)}
+              handlePress={() =>
+                signUp(nombre, email, fechaNacimiento, password, confirmarPassword).then(response => {
+                  console.log(response);
+                  if (response === true) {
+                    signIn(email, password);
+                  } else {
+                    console.error('Hubo un error al intentar el registro');
+                  }
+                })
+              }
             />
           </VStack>
         </Box>
