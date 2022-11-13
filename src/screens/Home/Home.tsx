@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 
 const Home = ({ navigation }: any) => {
   const { cards } = useCreditCards();
-  const { movements } = useMovements({maxItems: 3});
+  const { movements } = useMovements();
   const { signOut, auth } = useAuth();
   const goToMyCards = () => {
     navigation.navigate('MyCards');
