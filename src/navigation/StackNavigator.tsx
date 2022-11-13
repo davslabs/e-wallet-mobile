@@ -11,7 +11,7 @@ import Splash from '../screens/Splash';
 import { Header } from '../components';
 import { useMovements } from '../hooks/useMovements';
 import { StackNavigatorParamsList } from 'types/StackNavigatorParamsList';
-import DrawerNavigator from './DrawerNavegator';
+import DrawerNavigator from './DrawerNavigator';
 
 const Stack = createNativeStackNavigator<StackNavigatorParamsList>();
 
