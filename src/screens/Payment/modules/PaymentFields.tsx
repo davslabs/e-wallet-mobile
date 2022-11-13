@@ -4,6 +4,7 @@ import { Pressable, StyleSheet } from 'react-native';
 import { CreditCard, EmptyCreditCard, PressableIcon, ActionButton, FormInput } from '../../../components/shared';
 import { MaterialIcons } from '@expo/vector-icons';
 import { CreditCard as CreditCardType } from '../../../types/CreditCard';
+import { Movement as MovementType } from '../../../types/Movement';
 import CategoryMap from '../../../components/shared/CreditCard/utils/category-map';
 import { MiniMovement } from '../../../components/shared';
 import { Double } from 'react-native/Libraries/Types/CodegenTypes';
@@ -20,11 +21,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const PaymentFields = () => {
+interface MovementProps {
+  movement: MovementType[];
+}
+
+const PaymentFields = ({ movement } : MovementProps) => {
     const [destinatario, setDestinatario] = useState('');
-    const [descripcion, setDescripcion] = useState('');
+    const
+    
+    [descripcion, setDescripcion] = useState('');
     const [monto, setMonto] = useState('');
 
+{ movement.map((movement: MovementType, i) => {
     return (
             <Box style={{ justifyContent: 'center', flex: 1, alignItems: 'center' }}>
                 <VStack w="85%" space={4} alignItems="center">
@@ -51,6 +59,9 @@ const PaymentFields = () => {
                     />
                 </VStack>
             </Box>
-            )};
+            )
+                                                  }
+              )
+  }};
 
 export default PaymentFields;
