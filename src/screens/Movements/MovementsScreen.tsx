@@ -1,11 +1,14 @@
 import React, { ReactElement } from 'react';
-import { Box, HStack, Text, VStack } from 'native-base';
-import { Pressable, StyleSheet } from 'react-native';
-import { MiniMovement } from '../../components/shared';
+import { Box, Center, HStack, Text, VStack, Modal, Icon } from 'native-base';
+import { Button, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { ActionButton, MiniMovement } from '../../components/shared';
 import { Movement as MovementType } from '../../types/Movement';
 import { MaterialIcons } from '@expo/vector-icons';
 import { RouteProp, StackNavigationState } from '@react-navigation/native';
 import { StackNavigatorParamsList } from '../../types/StackNavigatorParamsList';
+import { NativeScreenNavigationContainer } from 'react-native-screens';
+import { useMovements } from 'hooks/useMovements';
+
 
 const styles = StyleSheet.create({
   title: {

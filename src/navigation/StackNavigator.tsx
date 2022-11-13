@@ -1,3 +1,4 @@
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useCallback, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
@@ -10,6 +11,7 @@ import Splash from '../screens/Splash';
 import { Header } from '../components';
 import { useMovements } from '../hooks/useMovements';
 import { StackNavigatorParamsList } from 'types/StackNavigatorParamsList';
+import DrawerNavigator from './DrawerNavegator';
 
 const Stack = createNativeStackNavigator<StackNavigatorParamsList>();
 
