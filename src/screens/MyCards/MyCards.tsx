@@ -1,8 +1,11 @@
-import { EmptyCreditCard, FormInput, MiniCreditCard } from '../../components';
+import { CreditCard, EmptyCreditCard, FormInput, MiniCreditCard } from '../../components';
+import { CreditCard as CreditCardType } from '../../types/CreditCard';
 import React, { useState } from 'react';
-import { Center, Box, ScrollView, Fab, Icon, HStack, Button } from 'native-base';
+import { Center, Box, ScrollView, Fab, Icon, HStack, Button, Pressable } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useCreditCards } from '../../hooks/useCreditCards';
+import CategoryMap from '../../components/shared/CreditCard/utils/category-map';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,30 +14,32 @@ const styles = StyleSheet.create({
 });
 
 const MyCards = ({ navigation }: any) => {
-  const [fecha, setFecha] = useState('');
+  const { cards } = useCreditCards();
   return (
     <Center style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Center>
+          {cards.map((card: CreditCardType, i) => {
+            return (
+              <Pressable onLongPress={() => alert('Borrar con long-press')}>
+                <Box mb={3}>
+                  <CreditCard
+                    cardHolder={card.titular}
+                    dueDate={card.fechaVencimiento}
+                    cardSuffix={card.suffix}
+                    bgColor={CategoryMap[card.categoria]}
+                    type={card.tipo}
+                  />
+                </Box>
+              </Pressable>
+            );
+          })}
           <Box>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="3456" bgColor="#DAA520" type="visa" />
-          </Box>
-          <Box mt={5}>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="blue" type="mastercard" />
-          </Box>
-          <Box mt={5}>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="red" type="mastercard" />
-          </Box>
-          <Box mt={5}>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="gold" type="mastercard" />
-          </Box>
-          <Box mt={5}>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="teal" type="mastercard" />
+            <EmptyCreditCard handlePress={() => alert('TO-DO!')} />
           </Box>
         </Center>
       </ScrollView>
     </Center>
   );
 };
-
 export default MyCards;
