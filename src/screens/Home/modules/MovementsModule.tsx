@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
+const maxMovementsInHome = 3;
 interface MovementsModuleProps {
   handlePress: () => void;
   movements: MovementType[];
@@ -29,7 +30,7 @@ const MovementsModule = ({ movements, handlePress }: MovementsModuleProps) => {
       <Pressable onPress={handlePress}>
         <HStack>
           <Box>
-            {movements.map((movement: MovementType, i) => {
+            {movements.slice(0,maxMovementsInHome).map((movement: MovementType, i) => {
               return (
                 <Box key={i}>
                   <MiniMovement description={movement.descripcion} amount={movement.monto} date={movement.fechaHora} />
