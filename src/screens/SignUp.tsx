@@ -4,8 +4,7 @@ import { Platform } from 'react-native';
 import { Center, Box, Heading, VStack, Icon, Button, ScrollView } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import useAuth from '../hooks/useAuth';
-import { ActionButton, FormInput, PressableIcon } from '../components/shared';
-import SideButtonInput from '../components/shared/SideButtonInput';
+import { ActionButton, FormInput, PressableIcon, SideButtonInput, EarthOne } from '../components/shared';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -111,7 +110,7 @@ const SignUp = () => {
             <ActionButton
               text="Registrar"
               handlePress={() =>
-                signUp(nombre, email, fechaNacimiento, password, confirmarPassword).then(response => {
+                signUp(nombre, email, fechaNacimiento, password, confirmarPassword).then((response) => {
                   console.log(response);
                   if (response === true) {
                     signIn(email, password);
@@ -122,6 +121,8 @@ const SignUp = () => {
               }
             />
           </VStack>
+
+          <EarthOne />
         </Box>
       </Center>
     </ScrollView>

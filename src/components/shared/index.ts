@@ -1,5 +1,6 @@
 import ActionButton from './ActionButton';
 import PressableIcon from './PressableIcon';
+import SideButtonInput from './SideButtonInput';
 import FormInput from './FormInput';
 import CreditCard from './CreditCard/CreditCard';
 import EmptyCreditCard from './CreditCard/EmptyCreditCard';
@@ -7,15 +8,20 @@ import MiniCreditCard from './CreditCard/MiniCreditCard';
 import GoBackButton from './GoBackButton';
 import Header from './Header';
 import MiniMovement from './Movement/MiniMovement';
+import EarthOne from './EarthOne';
+import EarthTwo from './EarthTwo';
 
 export {
   ActionButton,
   PressableIcon,
   FormInput,
+  EarthOne,
+  EarthTwo,
   CreditCard,
   MiniCreditCard,
   EmptyCreditCard,
   GoBackButton,
   Header,
   MiniMovement,
+  SideButtonInput,
 };
