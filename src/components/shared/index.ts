@@ -7,6 +7,7 @@ import MiniCreditCard from './CreditCard/MiniCreditCard';
 import GoBackButton from './GoBackButton';
 import Header from './Header';
 import MiniMovement from './Movement/MiniMovement';
+import DateInput from './DateInput';
 
 export {
   ActionButton,
@@ -18,4 +19,5 @@ export {
   GoBackButton,
   Header,
   MiniMovement,
+  DateInput,
 };

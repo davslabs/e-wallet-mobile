@@ -6,7 +6,7 @@ import Form from './PressableIcon';
 interface FormInputProps {
   label: string;
   keyboardType: KeyboardTypeOptions;
-  value: string;
+  value?: string;
   onChangeText: (...args: any[]) => void;
   type?: 'text' | 'password' | undefined;
   helpText?: string | undefined;
