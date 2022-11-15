@@ -6,7 +6,13 @@ import useVerifyToken from '../hooks/useVerifyToken';
 export type AuthContextType = {
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
-  signUp: (email: string, password: string) => Promise<void>;
+  signUp: (
+    nombre: string,
+    email: string,
+    fechaNacimiento: Date,
+    password: string,
+    confirmarPassword: string,
+  ) => Promise<void>;
   refreshToken: () => Promise<void>;
   auth: any;
   isLoading: boolean;
@@ -65,7 +71,34 @@ export const AuthProvider = ({ children }: any) => {
         }
         setIsLoading(false);
       },
-      signUp: async (email: string, password: string) => {},
+      signUp: async (
+        nombre: string,
+        email: string,
+        fechaNacimiento: Date,
+        password: string,
+        confirmarPassword: string,
+      ) => {
+        const PASSWORD_MIN_LENGTH = 8;
+        try {
+          if (!nombre) throw new Error('Se requiere ingresar un nombre');
+          if (!email || !password) throw new Error('Email y contraseña son requeridos');
+          if (password.length < PASSWORD_MIN_LENGTH) throw new Error('La contraseña es demasiado corta.');
+          if (password !== confirmarPassword) throw new Error('Las contraseñas son distintas');
+          await axios.post(
+            '/auth/registrar',
+            { nombre, email, fechaNacimiento, password },
+            { headers: { 'Content-Type': 'application/json' }, withCredentials: true },
+          );
+          return true;
+        } catch (error: any) {
+          if (error?.response) {
+            console.error(`Error al registrar: ${error?.response?.data?.error.message}`);
+          } else {
+            console.error(error.message);
+          }
+          return false;
+        }
+      },
     }),
     [verify, cleanState],
   );

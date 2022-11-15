@@ -1,48 +1,48 @@
 import React from 'react';
-import { FormControl, Text, Input } from 'native-base';
+import { FormControl, Text, Stack, InputGroup, Input, InputRightAddon, Button } from 'native-base';
 import { KeyboardTypeOptions, StyleProp, ViewStyle } from 'react-native';
-import PressableIcon from './PressableIcon';
+import Form from './PressableIcon';
 
 interface FormInputProps {
   label: string;
-  placeholder: string;
   keyboardType: KeyboardTypeOptions;
   value: string;
   onChangeText: (...args: any[]) => void;
-  disabled?: boolean | undefined;
-  icon?: React.ReactElement<typeof PressableIcon> | undefined;
   type?: 'text' | 'password' | undefined;
-  iconLeft?: React.ReactElement<typeof Icon> | undefined;
   helpText?: string | undefined;
+  sideButton?: React.ReactElement<typeof Button> | undefined;
 }
 
-const FormInput = ({
+const SideButtonInput = ({
   label,
-  placeholder,
   keyboardType,
   value,
-  icon,
-  iconLeft,
   helpText,
   onChangeText,
-  disabled = false,
   type = 'text',
+  sideButton,
 }: FormInputProps) => {
   return (
     <FormControl>
       <FormControl.Label>
         <Text>{label}</Text>
       </FormControl.Label>
-      <Input
-        onChangeText={onChangeText}
-        value={value}
-        placeholder={placeholder}
-        keyboardType={keyboardType}
-        type={type}
-        InputRightElement={icon}
-        InputLeftElement={iconLeft}
-        isDisabled={disabled}
-      />
+      <Stack alignItems="center" w="100%">
+        <InputGroup>
+          <Input
+            onChangeText={onChangeText}
+            value={value}
+            keyboardType={keyboardType}
+            type={type}
+            isDisabled
+            w={{
+              base: '84%',
+            }}
+          />
+          <InputRightAddon bg="primary.600" w="16%" p="0" children={sideButton} />
+        </InputGroup>
+      </Stack>
+
       <FormControl.HelperText
         _text={{
           fontSize: 'xs',
@@ -54,4 +54,4 @@ const FormInput = ({
   );
 };
 
-export default FormInput;
+export default SideButtonInput;

@@ -22,14 +22,11 @@ const Home = ({ navigation }: any) => {
   const goToMyCards = () => {
     navigation.navigate('MyCards');
   };
-  const goToMyMovements = () => {
-    navigation.navigate('Movements', { movements });
-  };
 
   return (
     <Center style={styles.container}>
       {cards ? <CardsModule cards={cards} handlePress={goToMyCards} /> : <Splash />}
-      {movements ? <MovementsModule movements={movements} handlePress={goToMyMovements} />: <Splash />}
+      {movements ? <MovementsModule movements={movements} handlePress={goToMyCards} />: <Splash />}
       <ActionButton handlePress={signOut} text={`Adios ${auth.email}`} />
     </Center>
   );
