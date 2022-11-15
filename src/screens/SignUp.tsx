@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { Platform } from 'react-native';
-import { Center, Box, Heading, VStack, Icon, Button, ScrollView } from 'native-base';
+import { Center, Box, Heading, VStack, Icon, ScrollView } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import useAuth from '../hooks/useAuth';
-import { ActionButton, FormInput, PressableIcon } from '../components/shared';
-import SideButtonInput from '../components/shared/SideButtonInput';
+import { ActionButton, DateInput, FormInput, PressableIcon } from '../components/shared';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -15,26 +12,6 @@ const SignUp = () => {
   const [confirmarPassword, setConfirmarPassword] = useState('');
 
   const [showPassword, setShowPassword] = useState(false);
-
-  // Fecha
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-  const onChange = (event: DateTimePickerEvent, selectedDate: Date | undefined) => {
-    const currentDate = selectedDate instanceof Date ? selectedDate : new Date();
-    setShow(false);
-    setFechaNacimiento(currentDate);
-  };
-
-  const showMode = (currentMode: any) => {
-    if (Platform.OS === 'android') {
-      setShow(true);
-      // for iOS, add a button that closes the picker
-    }
-    setMode(currentMode);
-  };
-  const showDatepicker = () => {
-    showMode('date');
-  };
 
   const { signUp } = useAuth();
   const { signIn } = useAuth();
@@ -66,18 +43,11 @@ const SignUp = () => {
               onChangeText={setEmail}
               iconLeft={<Icon as={<MaterialIcons name="alternate-email" />} size={5} ml="2" color="muted.400" />}
             />
-            <SideButtonInput
-              label="Fecha de nacimiento"
-              keyboardType="default"
-              value={fechaNacimiento.toLocaleDateString()}
-              onChangeText={setFechaNacimiento}
+            <DateInput
+              label="Fecha de nacimiento 2"
+              value={fechaNacimiento}
               helpText="Deberá ser mayor a 18 años para registrarse."
-              sideButton={
-                <Button h={10} m="0" onPress={showDatepicker}>
-                  {show && <DateTimePicker value={fechaNacimiento} is24Hour onChange={onChange} />}
-                  <Icon as={<MaterialIcons name="date-range" />} size={5} color="white" />
-                </Button>
-              }
+              onChangeHandler={setFechaNacimiento}
             />
             <FormInput
               label="Contraseña"
@@ -111,8 +81,7 @@ const SignUp = () => {
             <ActionButton
               text="Registrar"
               handlePress={() =>
-                signUp(nombre, email, fechaNacimiento, password, confirmarPassword).then(response => {
-                  console.log(response);
+                signUp(nombre, email, fechaNacimiento, password, confirmarPassword).then((response) => {
                   if (response === true) {
                     signIn(email, password);
                   } else {
