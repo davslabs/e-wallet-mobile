@@ -11,7 +11,7 @@ import Splash from '../screens/Splash';
 import { Header } from '../components';
 import { useMovements } from '../hooks/useMovements';
 import { StackNavigatorParamsList } from 'types/StackNavigatorParamsList';
-import DrawerNavigator from './DrawerNavigator';
+import DrawerNavigator from './HomeDrawerNavigator';
 
 const Stack = createNativeStackNavigator<StackNavigatorParamsList>();
 
@@ -41,8 +41,7 @@ const StackNavigator = () => {
     >
       {auth?.isLoggedIn ? (
         <>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="MyCards" component={MyCards} />
+          <Stack.Screen name="Drawer" component={DrawerNavigator} />
           <Stack.Screen name="Movements" component={Movements} />
         </>
       ) : (
