@@ -1,8 +1,7 @@
 import { useCreditCards } from '../../hooks/useCreditCards';
 import { useMovements } from '../../hooks/useMovements';
-import { usePayments } from '../../hooks/usePayments';
 import { Center, Box } from 'native-base';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import CardsModule from './modules';
 import Splash from '../Splash';
@@ -20,12 +19,15 @@ const Home = ({ navigation }: any) => {
   const { cards } = useCreditCards();
   const { movements } = useMovements();
   const { signOut, auth } = useAuth();
+
   const goToMyCards = () => {
     navigation.navigate('MyCards');
   };
+
   const goToMyMovements = () => {
     navigation.navigate('Movements', { movements });
   };
+  
   const goToMyPayments = () => {
     navigation.navigate('Payment');
   }
@@ -34,8 +36,12 @@ const Home = ({ navigation }: any) => {
     <Center style={styles.container}>
       {cards ? <CardsModule cards={cards} handlePress={goToMyCards} /> : <Splash />}
       {movements ? <MovementsModule movements={movements} handlePress={goToMyMovements} />: <Splash />}
+      <Box>
       <ActionButton handlePress={goToMyPayments} text={`Mis Pagos`}/>
+      </Box>
+      <Box>
       <ActionButton handlePress={signOut} text={`Adios ${auth.email}`} />
+      </Box>
     </Center>
   );
 };

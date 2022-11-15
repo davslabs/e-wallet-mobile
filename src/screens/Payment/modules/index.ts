@@ -1,3 +1,3 @@
-import CardsModuleSlidable from './CardsModuleSlidable';
+import PaymentFields from './PaymentFields';
 
-export default CardsModuleSlidable;
+export default PaymentFields;

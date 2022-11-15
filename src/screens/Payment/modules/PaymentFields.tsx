@@ -1,13 +1,29 @@
 import React, { useState } from 'react';
 import { VStack, Box, Center, Heading } from 'native-base';
-import { FormInput } from '../../../components/shared';
+import { ActionButton, FormInput } from '../../../components/shared';
+import Splash from '../../Splash';
+import CardsModuleSlidable from './CardsModuleSlidable';
+import useAuth from '../../../hooks/useAuth';
+import { useCreditCards } from '../../../hooks/useCreditCards';
 
-const PaymentFields = () => {
+
+const PaymentFields = (navigation: any) => {
+    const { cards } = useCreditCards();
+    const { auth } = useAuth();
     const [destinatario, setDestinatario] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [monto, setMonto] = useState('');
+
+    const goToMyCards = () => {
+      navigation.navigate('MyCards');
+    };
+
+    const goToMyTicket = () => {
+      navigation.navigate('MyTicket');
+    }
+
     return (
-      <Center >
+      <Center>
         <Box safeArea p="2" maxW={['90%', '90%', '50%']} minW="290" justifyContent="center">
           <Heading size="lg" fontWeight="semibold">
             Pagos
@@ -38,6 +54,12 @@ const PaymentFields = () => {
                         onChangeText={ setMonto }
                     />
                 </VStack>
+                </Box>
+                <Box>
+                  {cards ? <CardsModuleSlidable cards={cards} handlePress={goToMyCards} /> : <Splash />}
+                  <Box mt="3">
+                  <ActionButton handlePress={goToMyTicket} text={`Pagar`} />
+                  </Box>
                 </Box>
       </Center>)
 };
