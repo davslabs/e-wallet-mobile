@@ -4,10 +4,12 @@ import useAxiosPrivate from './useAxios';
 import { MovementFilter } from '../types/MovementFilter';
 
 
+
 export const useMovements = (filterParams?: MovementFilter) => {
   const [movements, setMovements] = useState<Movement[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const axios = useAxiosPrivate();
+
   const getMovements = useCallback(async (filterParams?: any) => {
     setIsLoading(true);
     let url = '/movimiento';
@@ -25,8 +27,8 @@ export const useMovements = (filterParams?: MovementFilter) => {
       setIsLoading(false);
     }
   }, []);
-
-  useEffect(() => {
+    
+    useEffect(() => {
     getMovements(filterParams);
   }, [getMovements]);
 

@@ -1,5 +1,6 @@
 import { useCreditCards } from '../../hooks/useCreditCards';
 import { useMovements } from '../../hooks/useMovements';
+import { usePayments } from '../../hooks/usePayments';
 import { Center, Box } from 'native-base';
 import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
@@ -25,11 +26,15 @@ const Home = ({ navigation }: any) => {
   const goToMyMovements = () => {
     navigation.navigate('Movements', { movements });
   };
+  const goToMyPayments = () => {
+    navigation.navigate('Payment');
+  }
 
   return (
     <Center style={styles.container}>
       {cards ? <CardsModule cards={cards} handlePress={goToMyCards} /> : <Splash />}
       {movements ? <MovementsModule movements={movements} handlePress={goToMyMovements} />: <Splash />}
+      <ActionButton handlePress={goToMyPayments} text={`Mis Pagos`}/>
       <ActionButton handlePress={signOut} text={`Adios ${auth.email}`} />
     </Center>
   );

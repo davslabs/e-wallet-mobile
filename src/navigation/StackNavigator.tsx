@@ -7,6 +7,7 @@ import MyCards from '../screens/MyCards';
 import Movements from '../screens/Movements';
 import Login from '../screens/Login';
 import Splash from '../screens/Splash';
+import Payment from '../screens/Payment';
 import { Header } from '../components';
 import { useMovements } from '../hooks/useMovements';
 import { StackNavigatorParamsList } from 'types/StackNavigatorParamsList';
@@ -42,6 +43,7 @@ const StackNavigator = () => {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="MyCards" component={MyCards} />
           <Stack.Screen name="Movements" component={Movements} />
+          <Stack.Screen name="Payment" component={Payment} />
         </>
       ) : (
         <Stack.Screen name="Login" component={Login} />

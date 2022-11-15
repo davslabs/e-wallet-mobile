@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Movement } from '../types/Movement';
+import { Payment } from '../types/Payment';
 import useAxiosPrivate from './useAxios';
 
 export const usePayments = () => {
-    const [movements, setMovements] = useState<Movement[]>([]);
+    const [payments, setPayments] = useState<Payment[]>([]);
     const [isLoading, setIsLoading] = useState(true);
   const axios = useAxiosPrivate();
 
@@ -11,7 +11,7 @@ export const usePayments = () => {
     setIsLoading(true);
     try {
       const { data } = await axios.get('/payment');
-      setMovements( data );
+      setPayments( data );
     } catch (error: any) {
       console.error(error);
     } finally {
@@ -23,5 +23,5 @@ export const usePayments = () => {
     getPayment();
   }, [getPayment]);
 
-  return { movements, isLoading, getPayment };
+  return { payments, isLoading, getPayment };
 };

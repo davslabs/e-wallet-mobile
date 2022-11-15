@@ -9,7 +9,8 @@ import CategoryMap from '../../../components/shared/CreditCard/utils/category-ma
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 24,
+    marginTop: 10,
+    fontSize: 20,
     fontWeight: '600',
   },
   textButton: {
@@ -25,7 +26,7 @@ interface CardsModuleSlidableProps {
 
 const CardsModuleSlidable = ({ cards, handlePress }: CardsModuleSlidableProps) => {
   return (
-    <VStack space={5}>
+    <VStack space={2}>
       <Box>
         <Text style={styles.title}>Tarjetas</Text>
       </Box>
@@ -36,15 +37,6 @@ const CardsModuleSlidable = ({ cards, handlePress }: CardsModuleSlidableProps) =
            <Box>
           <EmptyCreditCard handlePress={handlePress} />
         </Box> 
-         {/* <Box>
-            <CreditCard cardHolder="John Doe" dueDate="12/2021" cardSuffix="3456" bgColor="#DAA520" type="VISA" />
-          </Box>
-          <Box ml={-280} mt={5}>
-            <CreditCard cardHolder="John Doe" dueDate="12/2021" cardSuffix="3456" bgColor="blue" type="MASTERCARD" />
-          </Box>
-          <Box ml={-270} mt={10}>
-            <CreditCard cardHolder="John Doe" dueDate="12/2021" cardSuffix="3456" bgColor="grey" type="MASTERCARD" />
-          </Box>*/}
           {cards.map((card: CreditCardType, i) => {
             return (
               <Box key={i}>
