@@ -5,6 +5,7 @@ import useFonts from '../hooks/useFonts';
 import Home from '../screens/Home';
 import MyCards from '../screens/MyCards';
 import Login from '../screens/Login';
+import SignUp from '../screens/SignUp';
 import Splash from '../screens/Splash';
 import { Header } from '../components';
 
@@ -39,7 +40,10 @@ const StackNavigator = () => {
           <Stack.Screen name="MyCards" component={MyCards} />
         </>
       ) : (
-        <Stack.Screen name="Login" component={Login} />
+        <>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+        </>
       )}
     </Stack.Navigator>
   );
