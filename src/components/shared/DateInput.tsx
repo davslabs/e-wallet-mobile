@@ -7,8 +7,8 @@ import SideButtonInput from './SideButtonInput';
 
 interface DateInputProps {
   label: string;
-  value: Date;
-  helpText: string;
+  value?: Date;
+  helpText?: string;
   onChangeHandler: (...args: any[]) => void;
 }
 
@@ -38,12 +38,12 @@ const DateInput = ({ label, value, onChangeHandler, helpText }: DateInputProps) 
     <SideButtonInput
       label={label}
       keyboardType="default"
-      value={date.toLocaleDateString()}
+      value={value?value.toLocaleDateString():date.toLocaleDateString()}
       onChangeText={onChange}
       helpText={helpText}
       sideButton={
         <Button h={10} m="0" onPress={showDatepicker}>
-          {show && <DateTimePicker mode={mode} is24Hour value={date} onChange={onChange} />}
+          {show && <DateTimePicker is24Hour value={date} onChange={onChange} />}
           <Icon as={<MaterialIcons name="date-range" />} size={5} color="white" />
         </Button>
       }

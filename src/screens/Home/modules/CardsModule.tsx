@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
+const maxCardsInHome = 3;
 interface CardsModuleProps {
   handlePress: () => void;
   cards: CreditCardType[];
@@ -31,10 +32,10 @@ const CardsModule = ({ cards, handlePress }: CardsModuleProps) => {
       <Pressable onPress={handlePress}>
         <HStack>
 
-          {cards.map((card: CreditCardType, i) => {            
+          {cards.slice(0,maxCardsInHome).map((card: CreditCardType, i) => {            
             return(
               
-              <Box key={i} ml={i>0?-290+i*10:0} mt={i*3}>
+              <Box key={i} ml={i>0?-290+i*10:0} mt={i*2}>
                 <CreditCard
                   cardHolder={card.titular}
                   dueDate={card.fechaVencimiento}
