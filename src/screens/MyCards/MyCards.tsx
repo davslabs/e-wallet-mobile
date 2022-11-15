@@ -13,7 +13,12 @@ const styles = StyleSheet.create({
   },
 });
 
+
 const MyCards = ({ navigation }: any) => {
+  const gotoAddCard = () =>{
+    navigation.navigate('AddCard');
+  }
+
   const { cards } = useCreditCards();
   return (
     <Center style={styles.container}>
@@ -21,7 +26,7 @@ const MyCards = ({ navigation }: any) => {
         <Center>
           {cards.map((card: CreditCardType, i) => {
             return (
-              <Pressable onLongPress={() => alert('Borrar con long-press')}>
+              <Pressable key={i} onLongPress={() => alert('Borrar con long-press')}>
                 <Box mb={3}>
                   <CreditCard
                     cardHolder={card.titular}
@@ -35,7 +40,7 @@ const MyCards = ({ navigation }: any) => {
             );
           })}
           <Box>
-            <EmptyCreditCard handlePress={() => alert('TO-DO!')} />
+            <EmptyCreditCard handlePress={gotoAddCard} />
           </Box>
         </Center>
       </ScrollView>
