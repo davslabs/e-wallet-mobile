@@ -1,11 +1,11 @@
-import { CreditCard, EmptyCreditCard, FormInput, MiniCreditCard } from '../../components';
+import { MiniCreditCard } from '../../components';
 import { CreditCard as CreditCardType } from '../../types/CreditCard';
-import React, { useState } from 'react';
-import { Center, Box, ScrollView, Fab, Icon, HStack, Button, Pressable } from 'native-base';
+import React from 'react';
+import { Center, Box, ScrollView, Fab, Icon, View } from 'native-base';
 import { StyleSheet } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { useCreditCards } from '../../hooks/useCreditCards';
 import CategoryMap from '../../components/shared/CreditCard/utils/category-map';
+import AntDesign from '@expo/vector-icons/build/AntDesign';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,38 +13,40 @@ const styles = StyleSheet.create({
   },
 });
 
-
 const MyCards = ({ navigation }: any) => {
-  const gotoAddCard = () =>{
+  const gotoAddCard = () => {
     navigation.navigate('AddCard');
-  }
+  };
 
   const { cards } = useCreditCards();
   return (
-    <Center style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Center>
-          {cards.map((card: CreditCardType, i) => {
-            return (
-              <Pressable key={i} onLongPress={() => alert('Borrar con long-press')}>
+    <View h='full'>
+      <Center style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Center>
+            {cards.map((card: CreditCardType, i) => {
+              return (
                 <Box mb={3}>
-                  <CreditCard
+                  <MiniCreditCard
                     cardHolder={card.titular}
-                    dueDate={card.fechaVencimiento}
                     cardSuffix={card.suffix}
                     bgColor={CategoryMap[card.categoria]}
                     type={card.tipo}
                   />
                 </Box>
-              </Pressable>
-            );
-          })}
-          <Box>
-            <EmptyCreditCard handlePress={gotoAddCard} />
-          </Box>
-        </Center>
-      </ScrollView>
-    </Center>
+              );
+            })}
+          </Center>
+        </ScrollView>
+      </Center>
+      <Fab
+        renderInPortal={false}
+        shadow={2}
+        size="sm"
+        icon={<Icon color="white" as={AntDesign} name="plus" size="sm" />}
+        onPress={gotoAddCard}
+      />
+    </View>
   );
 };
 export default MyCards;

@@ -2,16 +2,29 @@ import MaterialIcons from '@expo/vector-icons/build/MaterialIcons';
 import ActionButton from '../../components/shared/ActionButton';
 import FormInput from '../../components/shared/FormInput';
 import { Box, Center, Heading, Icon, ScrollView, VStack } from 'native-base';
-import React from 'react';
-
+import React, { useState } from 'react';
+import CreditCard from '../../components/shared/CreditCard/CreditCard';
+import CategoryMap from '../../components/shared/CreditCard/utils/category-map';
+import { CreditCard as CreditCardType } from '../../types/CreditCard';
 const AddCard = ({ navigation }: any) => {
-  const goToMyCards = () => {
-    navigation.navigate('MyCards');
-  };
-
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardSuffix, setCardSuffix] = useState('XXXX');
+  const [cardHolder, setCardHolder] = useState('')
+  const [cardDueDate, setCardDueDate] = useState('');
+  const [cardCVV, setCardCVV] = useState('');
+  const [cardType, setCardType] = useState('VISA');
   return (
     <ScrollView>
       <Center w="100%">
+        <Box mt={2}>
+        <CreditCard          
+          cardHolder={cardHolder}
+          dueDate={cardDueDate}
+          cardSuffix={cardSuffix}
+          bgColor={CategoryMap['CLASSIC']}
+          type={cardType}
+        />
+        </Box>
         <Box safeArea p="2" maxW={['90%', '90%', '50%']} minW="290" justifyContent="center">
           <Heading size="lg" fontWeight="semibold">
             Agregar tarjeta
@@ -24,47 +37,43 @@ const AddCard = ({ navigation }: any) => {
               label="Numero de tarjeta"
               placeholder="XXXX XXXX XXXX XXXX"
               keyboardType="numeric"
-              value={''}
-              onChangeText={() => console.log('hola, yo tambien')}
+              value={cardNumber}
+              onChangeText={(value)=>{
+                setCardNumber(value);                
+                setCardSuffix(value.slice(-4))                
+                let cardTypeName = (value.slice(0,1)==='4')?'VISA':'MASTERCARD';                
+                setCardType(cardTypeName);
+                }
+              }
               iconLeft={<Icon as={<MaterialIcons name="credit-card" />} size={5} marginLeft="2" color="muted.400" />}
             />
             <FormInput
               label="Vencimiento"
-              placeholder="MM/AA"
+              placeholder="AAAA-MM"
               keyboardType="numeric"
-              value={''}
-              onChangeText={() => console.log('hola, cambie')}
+              value={cardDueDate}
+              onChangeText={(value) => setCardDueDate(value)}
               iconLeft={<Icon as={<MaterialIcons name="date-range" />} size={5} ml="2" color="muted.400" />}
             />
             <FormInput
               label="Titular"
               placeholder="Nombre Apellido"
               keyboardType="default"
-              value={''}
-              onChangeText={() => console.log('hola, cambie')}
+              value={cardHolder}
+              onChangeText={(value) => setCardHolder(value.toUpperCase())}
               iconLeft={<Icon as={<MaterialIcons name="person" />} size={5} ml="2" color="muted.400" />}
             />
             <FormInput
               label="CVV"
               placeholder="***"
               keyboardType="numeric"
-              value={''}
-              onChangeText={() => console.log('hola, cambie')}
+              value={cardCVV}              
+              onChangeText={(value) => setCardCVV(value.slice(0,4))}
               iconLeft={<Icon as={<MaterialIcons name="credit-card" />} size={5} ml="2" color="muted.400" />}
             />
             <ActionButton
               text="Guardar"
-              handlePress={() => console.log('TO-DO-DO-DO')}
-              /* handlePress={ () => 
-                signUp(nombre, email, fechaNacimiento, password, confirmarPassword).then((response) => {
-                  console.log(response);
-                  if ((response = true)) {
-                    gotoMyCards;
-                  } else {
-                    console.error('No se pudo agregar la tarjeta, por favor verifique los datos');
-                  }
-                })
-            }*/
+              handlePress={() => alert('WIP')}
             />
           </VStack>
         </Box>
