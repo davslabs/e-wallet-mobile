@@ -10,6 +10,7 @@ import Header from './Header';
 import MiniMovement from './Movement/MiniMovement';
 import EarthOne from './EarthOne';
 import EarthTwo from './EarthTwo';
+import DateInput from './DateInput';
 
 export {
   ActionButton,
@@ -17,6 +18,7 @@ export {
   FormInput,
   EarthOne,
   EarthTwo,
+  DateInput,
   CreditCard,
   MiniCreditCard,
   EmptyCreditCard,

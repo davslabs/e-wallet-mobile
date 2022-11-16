@@ -7,6 +7,7 @@ import MyCards from '../screens/MyCards';
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
 import Splash from '../screens/Splash';
+import AddCard from '../screens/AddCard';
 import { Header } from '../components';
 
 const Stack = createNativeStackNavigator();
@@ -38,6 +39,7 @@ const StackNavigator = () => {
         <>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="MyCards" component={MyCards} />
+          <Stack.Screen name="AddCard" component={AddCard} />
         </>
       ) : (
         <>
