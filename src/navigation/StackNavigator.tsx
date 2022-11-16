@@ -9,8 +9,10 @@ import SignUp from '../screens/SignUp';
 import Splash from '../screens/Splash';
 import AddCard from '../screens/AddCard';
 import { Header } from '../components';
+import Movements from '../screens/Movements/MovementsScreen';
+import { StackNavigatorParamsList } from 'types/StackNavigatorParamsList';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<StackNavigatorParamsList>();
 
 const StackNavigator = () => {
   const { auth, refreshToken, isLoading } = useAuth();
@@ -39,6 +41,7 @@ const StackNavigator = () => {
         <>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="MyCards" component={MyCards} />
+          <Stack.Screen name="Movements" component={Movements} />
           <Stack.Screen name="AddCard" component={AddCard} />
         </>
       ) : (
