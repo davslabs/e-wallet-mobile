@@ -7,7 +7,7 @@ interface MiniCreditCardProps {
   cardHolder: string;
   cardSuffix: string;
   bgColor: string;
-  type: 'visa' | 'mastercard';
+  type: 'VISA' | 'MASTERCARD';
   style?: StyleProp<ViewStyle>;
 }
 
@@ -45,7 +45,7 @@ const MiniCreditCard = ({ cardHolder, cardSuffix, bgColor, type, style }: MiniCr
   const dot = [styles.dot, { backgroundColor: styles.text.color }];
   return (
     <VStack shadow={7} style={[styles.card, { backgroundColor: bgColor }, style]}>
-      {type === 'visa' ? <VisaIcon /> : <MasterCardIcon />}
+      {type === 'VISA' ? <VisaIcon /> : <MasterCardIcon />}
       <HStack justifyContent="space-around" style={styles.cardContainer}>
         <Text style={styles.text}>{cardHolder}</Text>
         <HStack style={styles.cardNumberPart}>
