@@ -4,11 +4,9 @@ import {
   Center,
   FormControl,
   HStack,
-  Input,
   Text,
   VStack,
   Button,
-  Icon,
   Modal,
   Select,
   CheckIcon,
@@ -32,15 +30,13 @@ const styles = StyleSheet.create({
     fontWeight: '300',
   },
   container: {
-
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonContainer: {
     marginHorizontal: 5,
-
-  }
+  },
 });
 
 interface MovementsProps {
@@ -49,10 +45,10 @@ interface MovementsProps {
 
 const Movements = ({ route }: MovementsProps) => {
   const defaultFilter: MovementFilter = {
-    maxItems: 10,
+    maxItems: route.params.movements.length,
     fromDate: undefined,
     toDate: undefined,
-  }
+  };
   const [movementsList, setMovementsList] = useState(route.params.movements);
   const [currentFilter, setCurrentFilter] = useState(defaultFilter);
   const [showModal, setShowModal] = useState(false);
@@ -71,47 +67,46 @@ const Movements = ({ route }: MovementsProps) => {
 
   const applyFilter = () => {
     let filteredMovements = route.params.movements;
-    if (
-      currentFilter.toDate &&
-      currentFilter.fromDate &&
-      currentFilter.fromDate < currentFilter.toDate
-    ) {
+    if (currentFilter.toDate && currentFilter.fromDate && currentFilter.fromDate < currentFilter.toDate) {
       console.log(currentFilter);
-      filteredMovements = filteredMovements.filter(mov => new Date(mov.fechaHora) >= currentFilter.fromDate);
-      filteredMovements = filteredMovements.filter(mov => new Date(mov.fechaHora) <= currentFilter.toDate);
+      filteredMovements = filteredMovements.filter((mov) => new Date(mov.fechaHora) >= currentFilter.fromDate);
+      filteredMovements = filteredMovements.filter((mov) => new Date(mov.fechaHora) <= currentFilter.toDate);
     }
-    filteredMovements.slice(0, currentFilter.maxItems);
+    filteredMovements = filteredMovements.slice(0, currentFilter.maxItems);
     setMovementsList(filteredMovements);
   };
 
   const clearFilter = () => {
     setCurrentFilter(defaultFilter);
     applyFilter();
-  }
+  };
 
   return (
     <VStack space={5} marginTop={5} marginBottom={5}>
       <Box>
-        <Text style={styles.title}>Mis movimientos</Text>
+        <Text style={styles.title}>Movimientos</Text>
         <View style={styles.container}>
           <View style={styles.buttonContainer}>
-            <Button onPress={() => setShowModal(true)}>Filtro</Button>
+            <Button onPress={() => setShowModal(true)}>Filtrar</Button>
           </View>
           <View style={styles.buttonContainer}>
-            <Button onPress={() => clearFilter()}>Limpiar</Button>
+            {currentFilter.fromDate || currentFilter.toDate || currentFilter.maxItems != defaultFilter.maxItems ? (
+              <Button onPress={() => clearFilter()}>Borrar Filtro</Button>
+            ) : (
+              ''
+            )}
           </View>
         </View>
         <Center>
-
           <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
             <Modal.Content maxWidth="400px">
               <Modal.CloseButton />
               <Modal.Header>Filtrar Movimientos</Modal.Header>
               <Modal.Body>
                 <FormControl>
-                  <FormControl.Label>Ver cantidad de movimientos</FormControl.Label>
+                  <FormControl.Label>Ver ultimos movimientos</FormControl.Label>
                   <Select
-                    selectedValue={currentFilter.maxItems?.toString()}
+                    defaultValue={currentFilter.maxItems?.toString()}
                     minWidth="200"
                     accessibilityLabel="Cantidad de movimientos"
                     placeholder="Cantidad a mostrar"
@@ -127,6 +122,7 @@ const Movements = ({ route }: MovementsProps) => {
                     <Select.Item label="25 movimientos" value="25" />
                   </Select>
                 </FormControl>
+                <FormControl.Label>Ver movimientos entre fechas</FormControl.Label>
                 <DateInput label="Desde" value={currentFilter.fromDate} onChangeHandler={setFromDate} />
                 <DateInput label="Hasta" value={currentFilter.toDate} onChangeHandler={setToDate} />
               </Modal.Body>
@@ -139,7 +135,7 @@ const Movements = ({ route }: MovementsProps) => {
                       setShowModal(false);
                     }}
                   >
-                    Cancel
+                    Cancelar
                   </Button>
                   <Button
                     onPress={() => {
@@ -153,7 +149,6 @@ const Movements = ({ route }: MovementsProps) => {
               </Modal.Footer>
             </Modal.Content>
           </Modal>
-
         </Center>
       </Box>
       <ScrollView>
