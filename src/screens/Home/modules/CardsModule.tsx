@@ -25,33 +25,35 @@ interface CardsModuleProps {
 
 const CardsModule = ({ cards, handlePress }: CardsModuleProps) => {
   return (
-    <VStack space={5}>
+    <VStack space={5} marginTop={5}>
       <Box>
         <Text style={styles.title}>Mis tarjetas</Text>
       </Box>
-      <Pressable onPress={handlePress}>
-        <HStack>
-
-          {cards.slice(0,maxCardsInHome).map((card: CreditCardType, i) => {            
-            return(
-              
-              <Box key={i} ml={i>0?-290+i*10:0} mt={i*2}>
-                <CreditCard
-                  cardHolder={card.titular}
-                  dueDate={card.fechaVencimiento}
-                  cardSuffix={card.suffix}
-                  bgColor={CategoryMap[card.categoria]}
-                  type={card.tipo}
-                />
-              </Box>
-            );
-          })} 
-        </HStack>
-        <HStack justifyContent="space-between" mt={5}>
-          <Text style={styles.textButton}>Ver mis tarjetas</Text>
-          <MaterialIcons name="chevron-right" size={25} />
-        </HStack>
-      </Pressable>
+      {cards.length ? (
+        <Pressable onPress={handlePress}>
+          <HStack>
+            {cards.slice(0, maxCardsInHome).map((card: CreditCardType, i) => {
+              return (
+                <Box key={i} ml={i > 0 ? -290 + i * 10 : 0} mt={i * 2}>
+                  <CreditCard
+                    cardHolder={card.titular}
+                    dueDate={card.fechaVencimiento}
+                    cardSuffix={card.suffix}
+                    bgColor={CategoryMap[card.categoria]}
+                    type={card.tipo}
+                  />
+                </Box>
+              );
+            })}
+          </HStack>
+          <HStack justifyContent="space-between" mt={5}>
+            <Text style={styles.textButton}>Ver mis tarjetas</Text>
+            <MaterialIcons name="chevron-right" size={25} />
+          </HStack>
+        </Pressable>
+      ) : (
+        <EmptyCreditCard handlePress={handlePress} />
+      )}
     </VStack>
   );
 };

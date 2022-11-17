@@ -12,7 +12,7 @@ export type AuthContextType = {
     fechaNacimiento: Date,
     password: string,
     confirmarPassword: string,
-  ) => Promise<void>;
+  ) => Promise<boolean>;
   refreshToken: () => Promise<void>;
   auth: any;
   isLoading: boolean;
@@ -62,10 +62,10 @@ export const AuthProvider = ({ children }: any) => {
         await cleanState();
       },
       refreshToken: async () => {
-        const accessToken = await verify();
-        if (accessToken) {
-          await setItemAsync('accessToken', accessToken);
-          setAuth({ accessToken, isLoggedIn: true });
+        const data = await verify();
+        if (data?.accessToken) {
+          await setItemAsync('accessToken', data.accessToken);
+          setAuth({ accessToken: data.accessToken, email: data.email, isLoggedIn: true });
         } else {
           await cleanState();
         }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, HStack, Text, VStack } from 'native-base';
 import { Pressable, StyleSheet } from 'react-native';
-import { MiniMovement } from '../../../components/shared';
+import { EmptyMovement, MiniMovement } from '../../../components/shared';
 import { Movement as MovementType } from '../../../types/Movement';
 import { MaterialIcons } from '@expo/vector-icons';
 const styles = StyleSheet.create({
@@ -27,23 +27,31 @@ const MovementsModule = ({ movements, handlePress }: MovementsModuleProps) => {
       <Box>
         <Text style={styles.title}>Mis movimientos</Text>
       </Box>
-      <Pressable onPress={handlePress}>
-        <HStack>
-          <Box>
-            {movements.slice(0,maxMovementsInHome).map((movement: MovementType, i) => {
-              return (
-                <Box key={i}>
-                  <MiniMovement description={movement.descripcion} amount={movement.monto} date={movement.fechaHora} />
-                </Box>
-              );
-            })}
-          </Box>
-        </HStack>
-        <HStack justifyContent="space-between" mt={5}>
-          <Text style={styles.textButton}>Ver mis movimientos</Text>
-          <MaterialIcons name="chevron-right" size={25} />
-        </HStack>
-      </Pressable>
+      {movements.length ? (
+        <Pressable onPress={handlePress}>
+          <HStack>
+            <Box>
+              {movements.slice(0, maxMovementsInHome).map((movement: MovementType, i) => {
+                return (
+                  <Box key={i}>
+                    <MiniMovement
+                      description={movement.descripcion}
+                      amount={movement.monto}
+                      date={movement.fechaHora}
+                    />
+                  </Box>
+                );
+              })}
+            </Box>
+          </HStack>
+          <HStack justifyContent="space-between" mt={5}>
+            <Text style={styles.textButton}>Ver mis movimientos</Text>
+            <MaterialIcons name="chevron-right" size={25} />
+          </HStack>
+        </Pressable>
+      ) : (
+        <EmptyMovement />
+      )}
     </VStack>
   );
 };

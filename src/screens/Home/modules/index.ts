@@ -1,3 +1,4 @@
 import CardsModule from './CardsModule';
+import MovementsModule from './MovementsModule';
 
-export default CardsModule;
+export { CardsModule, MovementsModule };

@@ -5,6 +5,7 @@ import FormInput from './FormInput';
 import CreditCard from './CreditCard/CreditCard';
 import EmptyCreditCard from './CreditCard/EmptyCreditCard';
 import MiniCreditCard from './CreditCard/MiniCreditCard';
+import EmptyMovement from './Movement/EmptyMovement';
 import GoBackButton from './GoBackButton';
 import Header from './Header';
 import MiniMovement from './Movement/MiniMovement';
@@ -22,6 +23,7 @@ export {
   CreditCard,
   MiniCreditCard,
   EmptyCreditCard,
+  EmptyMovement,
   GoBackButton,
   Header,
   MiniMovement,
