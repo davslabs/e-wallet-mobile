@@ -3,21 +3,17 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useCallback, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import useFonts from '../hooks/useFonts';
-import Home from '../screens/Home';
-import MyCards from '../screens/MyCards';
-import Movements from '../screens/Movements';
 import Login from '../screens/Login';
+import SignUp from '../screens/SignUp';
 import Splash from '../screens/Splash';
-import { Header } from '../components';
-import { useMovements } from '../hooks/useMovements';
-import { StackNavigatorParamsList } from 'types/StackNavigatorParamsList';
-import DrawerNavigator from './HomeDrawerNavigator';
+import { StackNavigatorParamsList } from '../types/StackNavigatorParamsList';
+import HomeNavigator from './HomeNavigator';
+import TabNavigator from './TabNavigator';
 
-const Stack = createNativeStackNavigator<StackNavigatorParamsList>();
+const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
   const { auth, refreshToken, isLoading } = useAuth();
-  //const { movements } = useMovements({maxItems: 10});
 
   const loadApp = useCallback(async () => {
     await useFonts();
@@ -35,17 +31,17 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        header: ({ navigation, back }) => <Header navigation={navigation} back={back} />,
+        headerShown: false,
       }}
-      initialRouteName={auth?.isLoggedIn ? 'Home' : 'Login'}
+      initialRouteName={auth?.isLoggedIn ? 'HomeNavigator' : 'Login'}
     >
       {auth?.isLoggedIn ? (
-        <>
-          <Stack.Screen name="Drawer" component={DrawerNavigator} />
-          <Stack.Screen name="Movements" component={Movements} />
-        </>
+        <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
       ) : (
-        <Stack.Screen name="Login" component={Login} />
+        <>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+        </>
       )}
     </Stack.Navigator>
   );

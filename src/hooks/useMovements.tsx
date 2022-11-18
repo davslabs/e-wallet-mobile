@@ -8,15 +8,10 @@ export const useMovements = (filterParams?: MovementFilter) => {
   const [movements, setMovements] = useState<Movement[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const axios = useAxiosPrivate();
-  const getMovements = useCallback(async (filterParams?: any) => {
+  const getMovements = useCallback(async () => {
     setIsLoading(true);
-    let url = '/movimiento';
-    let connector = '?';
-    if (filterParams?.maxItems) {
-      url += connector + 'cant=' + filterParams.maxItems;
-      connector = '&';
-    }
-    try {
+    let url = '/movimiento?cant=100';
+       try {
       const { data } = await axios.get(url);
       setMovements(data);
     } catch (error: any) {
@@ -27,7 +22,7 @@ export const useMovements = (filterParams?: MovementFilter) => {
   }, []);
 
   useEffect(() => {
-    getMovements(filterParams);
+    getMovements();
   }, [getMovements]);
 
   return { movements, isLoading, getMovements };

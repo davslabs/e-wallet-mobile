@@ -74,6 +74,9 @@ const theme = extendTheme({
       800: '#B9A88D',
       900: '#B19E81',
     },
+    info: {
+      500: 'rgb(19, 177, 222)',
+    },
   },
 });
 
