@@ -1,18 +1,15 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useCallback, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import useFonts from '../hooks/useFonts';
-import Home from '../screens/Home';
-import MyCards from '../screens/MyCards';
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
 import Splash from '../screens/Splash';
-import AddCard from '../screens/AddCard';
-import { Header } from '../components';
-import Movements from '../screens/Movements/MovementsScreen';
-import { StackNavigatorParamsList } from 'types/StackNavigatorParamsList';
+import AppNavigator from './AppNavigator';
+import { Header } from '../components/shared';
 
-const Stack = createNativeStackNavigator<StackNavigatorParamsList>();
+const Stack = createStackNavigator();
 
 const StackNavigator = () => {
   const { auth, refreshToken, isLoading } = useAuth();
@@ -35,15 +32,10 @@ const StackNavigator = () => {
       screenOptions={{
         header: ({ navigation, back }) => <Header navigation={navigation} back={back} />,
       }}
-      initialRouteName={auth?.isLoggedIn ? 'Home' : 'Login'}
+      initialRouteName={auth?.isLoggedIn ? 'HomeNavigator' : 'Login'}
     >
       {auth?.isLoggedIn ? (
-        <>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="MyCards" component={MyCards} />
-          <Stack.Screen name="Movements" component={Movements} />
-          <Stack.Screen name="AddCard" component={AddCard} />
-        </>
+        <Stack.Screen name="AppNavigator" component={AppNavigator} />
       ) : (
         <>
           <Stack.Screen name="Login" component={Login} />

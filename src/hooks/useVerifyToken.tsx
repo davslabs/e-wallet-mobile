@@ -14,6 +14,7 @@ const useVerifyToken = () => {
       return {
         accessToken: data.accessToken,
         email: data.email,
+        nombre: data.nombre,
       };
     } catch (error: any) {
       if (error?.response?.status === 401) console.error('Usuario no autorizado');

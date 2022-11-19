@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: any) => {
           if (!email || !password) throw new Error('Email y contraseña son requeridos');
 
           const {
-            data: { accessToken },
+            data: { accessToken, nombre },
           } = await axios.post(
             '/auth/login',
             { email, password },
@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }: any) => {
 
           await setItemAsync('accessToken', accessToken);
           await setItemAsync('email', email);
+          await setItemAsync('nombre', nombre);
 
           setAuth({ accessToken, email, isLoggedIn: true });
           setIsLoading(false);
@@ -65,7 +66,7 @@ export const AuthProvider = ({ children }: any) => {
         const data = await verify();
         if (data?.accessToken) {
           await setItemAsync('accessToken', data.accessToken);
-          setAuth({ accessToken: data.accessToken, email: data.email, isLoggedIn: true });
+          setAuth({ accessToken: data.accessToken, email: data.email, nombre: data.nombre, isLoggedIn: true });
         } else {
           await cleanState();
         }

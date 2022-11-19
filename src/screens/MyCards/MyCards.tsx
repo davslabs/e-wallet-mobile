@@ -20,13 +20,13 @@ const MyCards = ({ navigation }: any) => {
 
   const { cards } = useCreditCards();
   return (
-    <View h='full'>
+    <View h="full">
       <Center style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Center>
             {cards.map((card: CreditCardType, i) => {
               return (
-                <Box mb={3}>
+                <Box key={i} mb={3}>
                   <MiniCreditCard
                     cardHolder={card.titular}
                     cardSuffix={card.suffix}
