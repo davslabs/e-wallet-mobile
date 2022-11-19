@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 import DrawerHome from './DrawerHome';
 import StackHome from './StackHome';
+import Payment from '../screens/Payment';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +34,7 @@ const AppNavigator = ({ navigation }: any) => {
       />
       <Tab.Screen
         name="Pay"
-        component={PlaceHolderComponent}
+        component={Payment}
         options={{
           tabBarLabel: 'Pagar',
           tabBarIcon: () => <MaterialIcons name="credit-card" size={24} color="#E18D51" />,
