@@ -5,6 +5,7 @@ export type StackNavigatorParamsList = {
   MyCards: undefined;
   Login: undefined;
   Payment: undefined;
+  Ticket: undefined;
   Movements: {
     movements: MovementType[];
   };

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Box, HStack, Text, VStack } from 'native-base';
-import { Pressable, StyleSheet } from 'react-native';
-import { CreditCard, EmptyCreditCard } from '../../../components/shared';
-import { MaterialIcons } from '@expo/vector-icons';
+import { Box, Text, Center, FlatList } from 'native-base';
+import { ScrollView, StyleSheet, } from 'react-native';
+import { CreditCard } from '../../../components/shared';
 import { CreditCard as CreditCardType } from '../../../types/CreditCard';
 import CategoryMap from '../../../components/shared/CreditCard/utils/category-map';
+
 
 
 const styles = StyleSheet.create({
@@ -12,11 +12,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 20,
     fontWeight: '600',
-  },
-  textButton: {
-    fontSize: 16,
-    fontWeight: '300',
-  },
+    paddingLeft:30
+  }
 });
 
 interface CardsModuleSlidableProps {
@@ -26,37 +23,31 @@ interface CardsModuleSlidableProps {
 
 const CardsModuleSlidable = ({ cards, handlePress }: CardsModuleSlidableProps) => {
   return (
-    <VStack space={2}>
-      <Box>
+    <ScrollView>
+    <Box>
         <Text style={styles.title}>Tarjetas</Text>
-      </Box>
-      
-
-      <Pressable onPress={handlePress}>
-        <HStack>
-           <Box>
-          <EmptyCreditCard handlePress={handlePress} />
-        </Box> 
-          {cards.map((card: CreditCardType, i) => {
-            return (
-              <Box key={i}>
-                <CreditCard
-                  cardHolder={card.titular}
-                  dueDate={card.fechaVencimiento}
-                  cardSuffix={card.suffix}
-                  bgColor={CategoryMap[card.categoria]}
-                  type={card.tipo}
+    </Box>
+    <Center>         
+                <FlatList 
+                data={cards}
+                renderItem={({item}) =>  
+                <Box style={{padding:5}}>
+                <CreditCard 
+                  cardHolder={item.titular}
+                  dueDate={item.fechaVencimiento}
+                  cardSuffix={item.suffix}
+                  bgColor={CategoryMap[item.categoria]}
+                  type={item.tipo}
                 />
-              </Box>
-            );
-          })}
-        </HStack>
-        <HStack justifyContent="space-between" mt={5}>
-          <Text style={styles.textButton}>Ver mis tarjetas</Text>
-          <MaterialIcons name="chevron-right" size={25} />
-        </HStack>
-      </Pressable>
-    </VStack>
+                </Box>}
+                keyExtractor={item => item.id}
+                horizontal={true}
+                showsVerticalScrollIndicator={false}
+                //initialScrollIndex={cards.length >= 1 ? 1 : 0}
+                >
+                </FlatList>
+      </Center>
+      </ScrollView>
   );
 };
 

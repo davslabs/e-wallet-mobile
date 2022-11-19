@@ -14,13 +14,13 @@ const MyCards = ({ navigation }: any) => {
   const [fecha, setFecha] = useState('');
   return (
     <Center style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={true}>
         <Center>
           <Box>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="3456" bgColor="#DAA520" type="visa" />
+            <MiniCreditCard cardHolder="John Doe" cardSuffix="3456" bgColor="gold" type="visa" />
           </Box>
           <Box mt={5}>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="blue" type="mastercard" />
+            <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="black" type="mastercard" />
           </Box>
           <Box mt={5}>
             <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="red" type="mastercard" />
@@ -29,7 +29,7 @@ const MyCards = ({ navigation }: any) => {
             <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="gold" type="mastercard" />
           </Box>
           <Box mt={5}>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="teal" type="mastercard" />
+            <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="gold" type="mastercard" />
           </Box>
         </Center>
       </ScrollView>

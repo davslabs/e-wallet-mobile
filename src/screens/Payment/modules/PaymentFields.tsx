@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { VStack, Box, Center, Heading } from 'native-base';
+import { StyleSheet } from 'react-native';
+import { VStack, Box, Center, Heading, View, ScrollView } from 'native-base';
 import { ActionButton, FormInput } from '../../../components/shared';
 import Splash from '../../Splash';
 import CardsModuleSlidable from './CardsModuleSlidable';
@@ -18,16 +19,22 @@ const PaymentFields = (navigation: any) => {
       navigation.navigate('MyCards');
     };
 
-    const goToMyTicket = () => {
-      navigation.navigate('MyTicket');
-    }
+
+    const styles = StyleSheet.create({
+      title: {
+        marginTop: 30,
+        fontSize: 20,
+        fontWeight: '200',
+        marginLeft: 30
+      }
+    });
+
 
     return (
-      <Center>
+      <ScrollView>
+        <Heading style={styles.title} size="lg" fontWeight="semibold">Pagos</Heading>
+        <Center>
         <Box safeArea p="2" maxW={['90%', '90%', '50%']} minW="290" justifyContent="center">
-          <Heading size="lg" fontWeight="semibold">
-            Pagos
-          </Heading>
           <Heading mt="1" fontWeight="medium" size="xs">
             Por favor, complete los siguientes datos
           </Heading>
@@ -55,13 +62,13 @@ const PaymentFields = (navigation: any) => {
                     />
                 </VStack>
                 </Box>
-                <Box>
+                </Center>
+                  <Box>
                   {cards ? <CardsModuleSlidable cards={cards} handlePress={goToMyCards} /> : <Splash />}
-                  <Box mt="3">
-                  <ActionButton handlePress={goToMyTicket} text={`Pagar`} />
                   </Box>
-                </Box>
-      </Center>)
+ 
+      
+      </ScrollView>)
 };
 
 export default PaymentFields;
