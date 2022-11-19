@@ -5,25 +5,25 @@ import { Box, Center, Heading, Icon, ScrollView, VStack } from 'native-base';
 import React, { useState } from 'react';
 import CreditCard from '../../components/shared/CreditCard/CreditCard';
 import CategoryMap from '../../components/shared/CreditCard/utils/category-map';
-import { CreditCard as CreditCardType } from '../../types/CreditCard';
+
 const AddCard = ({ navigation }: any) => {
   const [cardNumber, setCardNumber] = useState('');
   const [cardSuffix, setCardSuffix] = useState('XXXX');
-  const [cardHolder, setCardHolder] = useState('')
+  const [cardHolder, setCardHolder] = useState('');
   const [cardDueDate, setCardDueDate] = useState('');
   const [cardCVV, setCardCVV] = useState('');
   const [cardType, setCardType] = useState('VISA');
   return (
     <ScrollView>
-      <Center w="100%">
+      <Center>
         <Box mt={2}>
-        <CreditCard          
-          cardHolder={cardHolder}
-          dueDate={cardDueDate}
-          cardSuffix={cardSuffix}
-          bgColor={CategoryMap['CLASSIC']}
-          type={cardType}
-        />
+          <CreditCard
+            cardHolder={cardHolder}
+            dueDate={cardDueDate}
+            cardSuffix={cardSuffix}
+            bgColor={CategoryMap['CLASSIC']}
+            type={cardType}
+          />
         </Box>
         <Box safeArea p="2" maxW={['90%', '90%', '50%']} minW="290" justifyContent="center">
           <Heading size="lg" fontWeight="semibold">
@@ -38,13 +38,12 @@ const AddCard = ({ navigation }: any) => {
               placeholder="XXXX XXXX XXXX XXXX"
               keyboardType="numeric"
               value={cardNumber}
-              onChangeText={(value)=>{
-                setCardNumber(value);                
-                setCardSuffix(value.slice(-4))                
-                let cardTypeName = (value.slice(0,1)==='4')?'VISA':'MASTERCARD';                
+              onChangeText={(value) => {
+                setCardNumber(value);
+                setCardSuffix(value.slice(-4));
+                let cardTypeName = value.slice(0, 1) === '4' ? 'VISA' : 'MASTERCARD';
                 setCardType(cardTypeName);
-                }
-              }
+              }}
               iconLeft={<Icon as={<MaterialIcons name="credit-card" />} size={5} marginLeft="2" color="muted.400" />}
             />
             <FormInput
@@ -67,14 +66,11 @@ const AddCard = ({ navigation }: any) => {
               label="CVV"
               placeholder="***"
               keyboardType="numeric"
-              value={cardCVV}              
-              onChangeText={(value) => setCardCVV(value.slice(0,4))}
+              value={cardCVV}
+              onChangeText={(value) => setCardCVV(value.slice(0, 4))}
               iconLeft={<Icon as={<MaterialIcons name="credit-card" />} size={5} ml="2" color="muted.400" />}
             />
-            <ActionButton
-              text="Guardar"
-              handlePress={() => alert('WIP')}
-            />
+            <ActionButton text="Guardar" handlePress={() => alert('WIP')} />
           </VStack>
         </Box>
       </Center>

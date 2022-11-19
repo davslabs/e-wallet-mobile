@@ -1,11 +1,11 @@
 import { ParamListBase } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { HStack } from 'native-base';
 import React from 'react';
 import GoBackButton from './GoBackButton';
 
 interface HeaderProps {
-  navigation: NativeStackNavigationProp<ParamListBase>;
+  navigation: StackNavigationProp<ParamListBase>;
   back:
     | {
         title: string;

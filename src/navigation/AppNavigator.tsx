@@ -1,9 +1,8 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import Home from '../screens/Home';
-import MyCards from '../screens/MyCards';
-import DrawerNavigator from './DrawerNavigator';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
+import DrawerHome from './DrawerHome';
+import StackHome from './StackHome';
 
 const Tab = createBottomTabNavigator();
 
@@ -11,16 +10,25 @@ const PlaceHolderComponent = () => {
   return <></>;
 };
 
-const TabNavigator = () => {
+const AppNavigator = ({ navigation }: any) => {
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarLabelStyle: {
+          color: 'black',
+          fontWeight: '600',
+        },
       }}
     >
       <Tab.Screen
-        name="DrawerNavigator"
-        component={DrawerNavigator}
+        name="StackHome"
+        component={StackHome}
+        listeners={{
+          tabPress: () => {
+            navigation.navigate('Home');
+          },
+        }}
         options={{ tabBarLabel: 'Inicio', tabBarIcon: () => <MaterialIcons name="home" size={24} color="#E18D51" /> }}
       />
       <Tab.Screen
@@ -35,4 +43,4 @@ const TabNavigator = () => {
   );
 };
 
-export default TabNavigator;
+export default AppNavigator;

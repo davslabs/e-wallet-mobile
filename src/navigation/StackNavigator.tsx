@@ -1,16 +1,15 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useCallback, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import useFonts from '../hooks/useFonts';
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
 import Splash from '../screens/Splash';
-import { StackNavigatorParamsList } from '../types/StackNavigatorParamsList';
-import HomeNavigator from './HomeNavigator';
-import TabNavigator from './TabNavigator';
+import AppNavigator from './AppNavigator';
+import { Header } from '../components/shared';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const StackNavigator = () => {
   const { auth, refreshToken, isLoading } = useAuth();
@@ -31,12 +30,12 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
+        header: ({ navigation, back }) => <Header navigation={navigation} back={back} />,
       }}
       initialRouteName={auth?.isLoggedIn ? 'HomeNavigator' : 'Login'}
     >
       {auth?.isLoggedIn ? (
-        <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
+        <Stack.Screen name="AppNavigator" component={AppNavigator} />
       ) : (
         <>
           <Stack.Screen name="Login" component={Login} />

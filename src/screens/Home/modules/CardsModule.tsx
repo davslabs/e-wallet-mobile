@@ -25,7 +25,7 @@ interface CardsModuleProps {
 
 const CardsModule = ({ cards, handlePress }: CardsModuleProps) => {
   return (
-    <VStack space={5} marginTop={5}>
+    <VStack space={5}>
       <Box>
         <Text style={styles.title}>Mis tarjetas</Text>
       </Box>

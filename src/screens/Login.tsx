@@ -1,26 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { VStack, Text, Icon, ScrollView, Center, Image } from 'native-base';
+import { VStack, Text, Icon, ScrollView, Center, Image, Button, Box } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import useAuth from '../hooks/useAuth';
 import { ActionButton, FormInput, PressableIcon, EarthOne } from '../components/shared';
 import Logo from '../assets/images';
 
 const styles = StyleSheet.create({
-  container: {
+  rightContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  inputControl: {
-    width: '80%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    padding: 5,
-    marginVertical: 10,
-  },
-  buttonControl: {
-    width: '80%',
   },
 });
 
@@ -32,36 +20,39 @@ const Login = ({ navigation }: any) => {
 
   return (
     <ScrollView>
-      <Center style={styles.container} safeArea maxW={['90%', '90%', '50%']} w="90%" minW="290" py="8">
+      <Center safeArea>
         <VStack w="85%" space={4} mt="5" justifyContent="center">
           <Center>
             <Image source={Logo} alt="Wall-ET" width="200" height="200" />
           </Center>
-          <FormInput
-            label="Email"
-            placeholder="name@example.com"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={setEmail}
-            iconLeft={<Icon as={<MaterialIcons name="alternate-email" />} size={5} ml="2" color="muted.400" />}
-          />
-          <FormInput
-            label="Password"
-            placeholder="********"
-            type={showPassword ? 'text' : 'password'}
-            keyboardType="default"
-            value={password}
-            onChangeText={setPassword}
-            icon={
-              <PressableIcon
-                handlePress={() => setShowPassword(!showPassword)}
-                iconName={showPassword ? 'visibility-off' : 'visibility'}
-              />
-            }
-          />
+          <Box mt={10}>
+            <FormInput
+              label="Email"
+              placeholder="name@example.com"
+              keyboardType="email-address"
+              value={email}
+              onChangeText={setEmail}
+              iconLeft={<Icon as={<MaterialIcons name="alternate-email" />} size={5} ml="2" color="muted.400" />}
+            />
+            <FormInput
+              label="Password"
+              placeholder="********"
+              type={showPassword ? 'text' : 'password'}
+              keyboardType="default"
+              value={password}
+              onChangeText={setPassword}
+              icon={
+                <PressableIcon
+                  handlePress={() => setShowPassword(!showPassword)}
+                  iconName={showPassword ? 'visibility-off' : 'visibility'}
+                />
+              }
+            />
+          </Box>
           <ActionButton text="Iniciar sesión" handlePress={() => signIn(email, password)} />
         </VStack>
-        <VStack mt="6" w="35%" space={4} alignItems="center">
+        <EarthOne />
+        <VStack mt="10" w="35%" alignItems="center">
           <Text
             fontSize="sm"
             color="coolGray.600"
@@ -71,9 +62,10 @@ const Login = ({ navigation }: any) => {
           >
             No tengo cuenta.{' '}
           </Text>
-          <ActionButton text="Registrar" handlePress={() => navigation.navigate('SignUp')} />
+          <Button variant="link" onPress={() => navigation.navigate('SignUp')}>
+            Registrar
+          </Button>
         </VStack>
-        <EarthOne />
       </Center>
     </ScrollView>
   );
