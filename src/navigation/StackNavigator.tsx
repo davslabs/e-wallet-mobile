@@ -1,23 +1,18 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import { useCallback, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import useFonts from '../hooks/useFonts';
-import Home from '../screens/Home';
-import MyCards from '../screens/MyCards';
-import Movements from '../screens/Movements';
 import Login from '../screens/Login';
+import SignUp from '../screens/SignUp';
 import Splash from '../screens/Splash';
-import Payment from '../screens/Payment';
-import Ticket from '../screens/Ticket';
-import { Header } from '../components';
-import { StackNavigatorParamsList } from 'types/StackNavigatorParamsList';
+import AppNavigator from './AppNavigator';
+import { Header } from '../components/shared';
 
-
-const Stack = createNativeStackNavigator<StackNavigatorParamsList>();
+const Stack = createStackNavigator();
 
 const StackNavigator = () => {
   const { auth, refreshToken, isLoading } = useAuth();
-  //const { movements } = useMovements({maxItems: 10});
 
   const loadApp = useCallback(async () => {
     await useFonts();
@@ -37,18 +32,15 @@ const StackNavigator = () => {
       screenOptions={{
         header: ({ navigation, back }) => <Header navigation={navigation} back={back} />,
       }}
-      initialRouteName={auth?.isLoggedIn ? 'Home' : 'Login'}
+      initialRouteName={auth?.isLoggedIn ? 'HomeNavigator' : 'Login'}
     >
       {auth?.isLoggedIn ? (
-        <>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="MyCards" component={MyCards} />
-          <Stack.Screen name="Movements" component={Movements} />
-          <Stack.Screen name="Payment" component={Payment} />
-          <Stack.Screen name="Ticket" component={Ticket}/>
-        </>
+        <Stack.Screen name="AppNavigator" component={AppNavigator} />
       ) : (
-        <Stack.Screen name="Login" component={Login} />
+        <>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+        </>
       )}
     </Stack.Navigator>
   );

@@ -1,8 +1,11 @@
-import { EmptyCreditCard, FormInput, MiniCreditCard } from '../../components';
-import React, { useState } from 'react';
-import { Center, Box, ScrollView, Fab, Icon, HStack, Button } from 'native-base';
+import { MiniCreditCard } from '../../components';
+import { CreditCard as CreditCardType } from '../../types/CreditCard';
+import React from 'react';
+import { Center, Box, ScrollView, Fab, Icon, View } from 'native-base';
 import { StyleSheet } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { useCreditCards } from '../../hooks/useCreditCards';
+import CategoryMap from '../../components/shared/CreditCard/utils/category-map';
+import AntDesign from '@expo/vector-icons/build/AntDesign';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,30 +14,39 @@ const styles = StyleSheet.create({
 });
 
 const MyCards = ({ navigation }: any) => {
-  const [fecha, setFecha] = useState('');
+  const gotoAddCard = () => {
+    navigation.navigate('AddCard');
+  };
+
+  const { cards } = useCreditCards();
   return (
-    <Center style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={true}>
-        <Center>
-          <Box>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="3456" bgColor="gold" type="visa" />
-          </Box>
-          <Box mt={5}>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="black" type="mastercard" />
-          </Box>
-          <Box mt={5}>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="red" type="mastercard" />
-          </Box>
-          <Box mt={5}>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="gold" type="mastercard" />
-          </Box>
-          <Box mt={5}>
-            <MiniCreditCard cardHolder="John Doe" cardSuffix="1234" bgColor="gold" type="mastercard" />
-          </Box>
-        </Center>
-      </ScrollView>
-    </Center>
+    <View h="full">
+      <Center style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Center>
+            {cards.map((card: CreditCardType, i) => {
+              return (
+                <Box key={i} mb={3}>
+                  <MiniCreditCard
+                    cardHolder={card.titular}
+                    cardSuffix={card.suffix}
+                    bgColor={CategoryMap[card.categoria]}
+                    type={card.tipo}
+                  />
+                </Box>
+              );
+            })}
+          </Center>
+        </ScrollView>
+      </Center>
+      <Fab
+        renderInPortal={false}
+        shadow={2}
+        size="sm"
+        icon={<Icon color="white" as={AntDesign} name="plus" size="sm" />}
+        onPress={gotoAddCard}
+      />
+    </View>
   );
 };
-
 export default MyCards;

@@ -1,6 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 import StackNavigator from './navigation/StackNavigator';
 import { AuthProvider } from './context/AuthProvider';
 import theme from './styles/theme';
@@ -14,13 +16,14 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <AuthProvider>
-      <NativeBaseProvider theme={theme}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar backgroundColor="#f3f3f3" barStyle="dark-content" />
         <NavigationContainer>
-          <SafeAreaView style={styles.container}>
+          <NativeBaseProvider theme={theme}>
             <StackNavigator />
-          </SafeAreaView>
+          </NativeBaseProvider>
         </NavigationContainer>
-      </NativeBaseProvider>
+      </SafeAreaView>
     </AuthProvider>
   );
 }

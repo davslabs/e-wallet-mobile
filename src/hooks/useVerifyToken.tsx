@@ -11,7 +11,11 @@ const useVerifyToken = () => {
         {},
         { headers: { Authorization: `Bearer ${restoredToken}` } },
       );
-      return data.accessToken;
+      return {
+        accessToken: data.accessToken,
+        email: data.email,
+        nombre: data.nombre,
+      };
     } catch (error: any) {
       if (error?.response?.status === 401) console.error('Usuario no autorizado');
       else if (error?.response?.status === 400)

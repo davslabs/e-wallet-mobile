@@ -6,6 +6,10 @@ export type StackNavigatorParamsList = {
   Login: undefined;
   Payment: undefined;
   Ticket: undefined;
+  AppNavigator: undefined;
+  SignUp: undefined;
+  DrawerHome: undefined;
+  AddCard: undefined;
   Movements: {
     movements: MovementType[];
   };
