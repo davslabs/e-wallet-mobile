@@ -11,7 +11,7 @@ import CategoryMap from './../../components/shared/CreditCard/utils/category-map
 import { useMovements } from './../../hooks/useMovements';
 
 const Payment = ({ navigation }: any) => {
-  const { cards } = useCreditCards();
+  const { creditCards } = useCreditCards();
   const [destinatario, setDestinatario] = useState('');
   const [motivo, setMotivo] = useState('');
   const [monto, setMonto] = useState(0);
@@ -24,8 +24,8 @@ const Payment = ({ navigation }: any) => {
   };
 
   useEffect(() => {
-    if (cards && cards.length && cards.length > 0) setTarjeta(cards[0].id);
-  }, [cards]);
+    if (creditCards && creditCards.length && creditCards.length > 0) setTarjeta(creditCards[0].id);
+  }, [creditCards]);
 
   const styles = StyleSheet.create({
     title: {
@@ -99,7 +99,7 @@ const Payment = ({ navigation }: any) => {
       </Box>
       <Center>
         <FlatList
-          data={cards}
+          data={creditCards}
           viewabilityConfig={viewabilityConfig}
           ref={flatListRef}
           renderItem={({ item, index }) => (

@@ -18,13 +18,13 @@ const MyCards = ({ navigation }: any) => {
     navigation.navigate('AddCard');
   };
 
-  const { cards } = useCreditCards();
+  const { creditCards } = useCreditCards();
   return (
     <View h="full">
       <Center style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Center>
-            {cards.map((card: CreditCardType, i) => {
+            {creditCards.map((card: CreditCardType, i) => {
               return (
                 <Box key={i} mb={3}>
                   <MiniCreditCard

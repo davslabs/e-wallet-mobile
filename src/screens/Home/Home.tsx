@@ -6,7 +6,7 @@ import { CardsModule, MovementsModule } from './modules';
 import Splash from '../Splash';
 
 const Home = ({ navigation }: any) => {
-  const { cards } = useCreditCards();
+  const { creditCards } = useCreditCards();
   const { movements } = useMovements();
 
   const goToAddCard = () => {
@@ -19,21 +19,21 @@ const Home = ({ navigation }: any) => {
   const goToMyMovements = () => {
     navigation.navigate('Movements', { movements });
   };
-  
+
   const goToMyPayments = () => {
     navigation.navigate('Payment');
-  }
+  };
 
   const goToMyTicket = () => {
     navigation.navigate('Ticket');
-  }
+  };
 
   return (
     <Center>
-      {cards && movements ? (
+      {creditCards && movements ? (
         <>
           <VStack space={10}>
-            <CardsModule cards={cards} handlePress={cards.length ? goToMyCards : goToAddCard} />
+            <CardsModule cards={creditCards} handlePress={creditCards.length ? goToMyCards : goToAddCard} />
             <MovementsModule movements={movements} handlePress={goToMyMovements} />
           </VStack>
         </>

@@ -51,15 +51,15 @@ const Ticket = ({ route, navigation }: any) => {
 
   const [usedCard, setUsedCard] = useState<CreditCard | undefined>(undefined);
 
-  const { cards } = useCreditCards();
+  const { creditCards } = useCreditCards();
   const { id, descripcion, monto, tarjeta } = route.params;
 
   useEffect(() => {
-    if (cards) {
-      const card = cards.find((card) => card.id === tarjeta);
+    if (creditCards) {
+      const card = creditCards.find((card) => card.id === tarjeta);
       setUsedCard(card);
     }
-  }, [cards]);
+  }, [creditCards]);
 
   return (
     <Center style={styles.container}>
