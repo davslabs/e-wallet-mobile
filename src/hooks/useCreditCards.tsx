@@ -25,13 +25,14 @@ export const useCreditCards = () => {
     setIsLoading(true);
     try {
       await axios.post('/tarjeta', card,
-        { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
+        { headers: { 'Content-Type': 'application/json' }, withCredentials: true });     
     } catch (error: any) {
       if (error?.response) {
         console.error(`Error al agregar tarjeta: ${error?.response?.data?.error.message}`);
       } else {
         console.error(error.message);
       }
+      return false;
     } finally {
       setIsLoading(false);
     }

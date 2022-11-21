@@ -143,11 +143,18 @@ const AddCard = ({ navigation }: any) => {
               let result: ValidationResult;
               result = validateCardData(card)
               if (result.success) {
-                saveCard(card).then(() => {
-                  navigation.navigate('MyCards');
-                }
-                );
-              } else {
+                saveCard(card).then((response) => {
+                  if (response) {
+                    navigation.navigate('MyCards');
+                  } else {
+                    result = {
+                      success: false,
+                      message: 'Error al guardar la tarjeta'
+                    }
+                  }
+                });
+              }
+              if (!result.success) {
                 toast.show({
                   description: result.message,
                   placement: 'top'
