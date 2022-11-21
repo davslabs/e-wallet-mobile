@@ -9,6 +9,7 @@ interface FormInputProps {
   keyboardType: KeyboardTypeOptions;
   value: string;
   onChangeText: (...args: any[]) => void;
+  width?: any;
   disabled?: boolean | undefined;
   icon?: React.ReactElement<typeof PressableIcon> | undefined;
   type?: 'text' | 'password' | undefined;
@@ -25,11 +26,12 @@ const FormInput = ({
   iconLeft,
   helpText,
   onChangeText,
+  width = 'full',
   disabled = false,
   type = 'text',
 }: FormInputProps) => {
   return (
-    <FormControl>
+    <FormControl width={width}>
       <FormControl.Label>
         <Text>{label}</Text>
       </FormControl.Label>
