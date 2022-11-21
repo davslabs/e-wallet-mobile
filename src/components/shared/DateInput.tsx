@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Icon } from 'native-base';
+import { Button, Icon, IconButton } from 'native-base';
 import { Platform } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -38,14 +38,28 @@ const DateInput = ({ label, value, onChangeHandler, helpText }: DateInputProps) 
     <SideButtonInput
       label={label}
       keyboardType="default"
-      value={value?value.toLocaleDateString():date.toLocaleDateString()}
+      value={value ? value.toLocaleDateString() : date.toLocaleDateString()}
       onChangeText={onChange}
       helpText={helpText}
       sideButton={
-        <Button h={10} m="0" onPress={showDatepicker}>
+        <>
+          <IconButton
+            variant="solid"
+            _icon={{
+              as: MaterialIcons,
+              name: 'date-range',
+            }}
+            onPress={showDatepicker}
+            borderLeftRadius="none"
+            borderRightRadius="md"
+            m="0"
+          />
+          {show && <DateTimePicker is24Hour value={date} onChange={onChange} />}
+        </>
+        /* <Button h={10} m="0" onPress={showDatepicker}>
           {show && <DateTimePicker is24Hour value={date} onChange={onChange} />}
           <Icon as={<MaterialIcons name="date-range" />} size={5} color="white" />
-        </Button>
+        </Button> */
       }
     />
   );
