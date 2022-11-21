@@ -22,6 +22,10 @@ interface MovementsModuleProps {
 }
 
 const MovementsModule = ({ movements, handlePress }: MovementsModuleProps) => {
+  const altDefault = Math.round(Math.random());
+  const altBack = (i: number) => {
+    return i % 2 === altDefault;
+  };
   return (
     <VStack space={5} marginTop={5} marginBottom={5}>
       <Box>
@@ -31,10 +35,11 @@ const MovementsModule = ({ movements, handlePress }: MovementsModuleProps) => {
         <Pressable onPress={handlePress}>
           <HStack>
             <Box>
-              {movements.slice(0, maxMovementsInHome).map((movement: MovementType, i) => {
+              {movements.slice(0, maxMovementsInHome).map((movement: MovementType, i) => {                
                 return (
                   <Box key={i}>
                     <MiniMovement
+                      alt={altBack(i)}
                       description={movement.descripcion}
                       amount={movement.monto}
                       date={movement.fechaHora}

@@ -12,11 +12,14 @@ import {
   CheckIcon,
   ScrollView,
   View,
+  Icon,
+  InputLeftAddon,
 } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { MovementFilter } from 'types/MovementFilter';
-import { MiniMovement, DateInput } from '../../components/shared';
+import { MaterialIcons } from '@expo/vector-icons';
+import { MiniMovement, DateInput, EarthTwo } from '../../components/shared';
 import { Movement as MovementType } from '../../types/Movement';
 import { StackNavigatorParamsList } from '../../types/StackNavigatorParamsList';
 
@@ -24,6 +27,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: '600',
+    float: 'left',
   },
   textButton: {
     fontSize: 16,
@@ -81,14 +85,20 @@ const Movements = ({ route }: MovementsProps) => {
   };
 
   return (
-    <Center style={styles.container}>
+    <Box style={styles.container}>
       <VStack space={5} marginTop={5} marginBottom={5}>
         <Box>
           <Text style={styles.title}>Movimientos</Text>
-          <View style={styles.container}>
-            <View style={styles.buttonContainer}>
-              <Button onPress={() => setShowModal(true)}>Filtrar</Button>
-            </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              variant="link"
+              alignSelf="flex-end"
+              fontWeight="semibold"
+              onPress={() => setShowModal(true)}
+              endIcon={<Icon as={<MaterialIcons name="filter-alt" />} size="md" />}
+            >
+              Filtrar
+            </Button>
             <View style={styles.buttonContainer}>
               {currentFilter.fromDate || currentFilter.toDate || currentFilter.maxItems !== defaultFilter.maxItems ? (
                 <Button onPress={() => clearFilter()}>Borrar Filtro</Button>
@@ -154,10 +164,15 @@ const Movements = ({ route }: MovementsProps) => {
         <ScrollView>
           <HStack>
             <Box>
-              {movementsList.map((movement: MovementType) => {
+              {movementsList.map((movement: MovementType, index) => {
+                const altBack = () => {
+                  return index % 2 === 1;
+                };
+
                 return (
                   <Box key={movement.id}>
                     <MiniMovement
+                      alt={altBack()}
                       description={movement.descripcion}
                       amount={movement.monto}
                       date={movement.fechaHora}
@@ -168,8 +183,10 @@ const Movements = ({ route }: MovementsProps) => {
             </Box>
           </HStack>
         </ScrollView>
+
+        <EarthTwo opacity="10" />
       </VStack>
-    </Center>
+    </Box>
   );
 };
 
