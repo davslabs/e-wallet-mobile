@@ -21,25 +21,21 @@ export const useCreditCards = () => {
     }
   }, []);
 
-  const saveCard = async (card: NewCreditCard) => { 
+  const saveCard = async (card: NewCreditCard) => {
     setIsLoading(true);
     try {
-      const response = await axios.post('/tarjeta', card,
+      await axios.post('/tarjeta', card,
         { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
-      setIsLoading(false);
-      if (response.status.valueOf() === 201) {
-        return true;
-      }
     } catch (error: any) {
       if (error?.response) {
         console.error(`Error al agregar tarjeta: ${error?.response?.data?.error.message}`);
       } else {
         console.error(error.message);
       }
-    } finally{
+    } finally {
       setIsLoading(false);
     }
-    return false;
+    return true;
   }
 
   useEffect(() => {

@@ -55,7 +55,7 @@ const AddCard = ({ navigation }: any) => {
       fontSize: 24,
       fontWeight: '600',
       left: 40,
-      marginBottom:5,
+      marginBottom: 5,
     },
     container: {
       alignItems: 'center',
@@ -143,19 +143,16 @@ const AddCard = ({ navigation }: any) => {
               let result: ValidationResult;
               result = validateCardData(card)
               if (result.success) {
-                saveCard(card).then(cardSaved => {
-                  if (cardSaved) {
-                    navigation.navigate('MyCards');
-                  } else {
-                    result = { message: 'Error al guardar la tarjeta', success: false };
-                  }
-                });
-              }
-              if (!result.success)
+                saveCard(card).then(() => {
+                  navigation.navigate('MyCards');
+                }
+                );
+              } else {
                 toast.show({
                   description: result.message,
                   placement: 'top'
                 });
+              }
             }} />
           </VStack>
         </Box>
