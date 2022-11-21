@@ -2,8 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Movement } from '../types/Movement';
 import useAxiosPrivate from './useAxios';
 import { MovementFilter } from '../types/MovementFilter';
-
-
+import { NewMovement } from './../types/NewMovement';
 
 export const useMovements = (filterParams?: MovementFilter) => {
   const [movements, setMovements] = useState<Movement[]>([]);
@@ -12,9 +11,22 @@ export const useMovements = (filterParams?: MovementFilter) => {
   const getMovements = useCallback(async () => {
     setIsLoading(true);
     let url = '/movimiento?cant=100';
-       try {
+    try {
       const { data } = await axios.get(url);
       setMovements(data);
+    } catch (error: any) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const addMovement = useCallback(async (movement: NewMovement) => {
+    setIsLoading(true);
+    let url = '/movimiento';
+    try {
+      const { data } = await axios.post(url, movement);
+      return data;
     } catch (error: any) {
       console.error(error);
     } finally {
@@ -26,6 +38,5 @@ export const useMovements = (filterParams?: MovementFilter) => {
     getMovements();
   }, [getMovements]);
 
-  return { movements, isLoading, getMovements };
+  return { movements, isLoading, getMovements, addMovement };
 };
-

@@ -12,13 +12,17 @@ const PaymentFields = (navigation: any) => {
     const { cards } = useCreditCards();
     const { auth } = useAuth();
     const [destinatario, setDestinatario] = useState('');
-    const [descripcion, setDescripcion] = useState('');
+    const [motivo, setMotivo] = useState('');
     const [monto, setMonto] = useState('');
 
     const goToMyCards = () => {
       navigation.navigate('MyCards');
     };
 
+    const validateInput = () => {
+
+      
+    };
 
     const styles = StyleSheet.create({
       title: {
@@ -28,7 +32,6 @@ const PaymentFields = (navigation: any) => {
         marginLeft: 30
       }
     });
-
 
     return (
       <ScrollView>
@@ -44,20 +47,24 @@ const PaymentFields = (navigation: any) => {
                         placeholder="Alias/CVU"
                         keyboardType="default"
                         value= {destinatario}
+                        helpText="Debe ingresar un destinatario"
                         onChangeText={ setDestinatario }
                     />
+                    
                     <FormInput
                         label="Motivo"
                         placeholder="Expensas/Haberes/Varios"
                         keyboardType="default"
-                        value={ descripcion }
-                        onChangeText={ setDescripcion }
+                        value={ motivo }
+                        onChangeText={ setMotivo }
                     />
+
                     <FormInput
                         label="Monto"
                         placeholder="Monto $$$"
                         keyboardType="number-pad"
                         value={ monto }
+                        helpText="Monto invalido."
                         onChangeText={ setMonto }
                     />
                 </VStack>

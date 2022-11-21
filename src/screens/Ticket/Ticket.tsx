@@ -50,7 +50,6 @@ const Ticket = ({ navigation }: any) => {
       <Pressable>
         <VStack shadow={10} style={[styles.ticket, { backgroundColor: '#EDBA96', opacity: 0.3, padding: 10 }]}>
           <Heading style={[styles.title, { padding: 10 }]}>Pago N°#</Heading>
-          <Text style={styles.fixToText}>Destinatario: </Text>
           <Text style={styles.fixToText}>Motivo: </Text>
           <Text style={styles.fixToText}>Monto: </Text>
         </VStack>

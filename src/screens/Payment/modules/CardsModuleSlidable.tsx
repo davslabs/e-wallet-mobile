@@ -17,12 +17,21 @@ const styles = StyleSheet.create({
 });
 
 interface CardsModuleSlidableProps {
-  handlePress: () => void;
+  onViewableItemsChanged: (viewableItems: any, changed: any) => void;
   cards: CreditCardType[];
 }
 
-const CardsModuleSlidable = ({ cards, handlePress }: CardsModuleSlidableProps) => {
+const CardsModuleSlidable = ({ cards, onViewableItemsChanged}: CardsModuleSlidableProps) => {
+  
+  let viewabilityConfig = {
+    waitForInteraction: false,
+    viewAreaCoveragePercentThreshold: 95,
+    itemVisiblePercentThreshold: 75
+  }
+
   return (
+
+    
     <ScrollView>
     <Box>
         <Text style={styles.title}>Tarjetas</Text>
@@ -30,6 +39,7 @@ const CardsModuleSlidable = ({ cards, handlePress }: CardsModuleSlidableProps) =
     <Center>         
                 <FlatList 
                 data={cards}
+                viewabilityConfig = {viewabilityConfig}
                 renderItem={({item}) =>  
                 <Box style={{padding:5}}>
                 <CreditCard 
@@ -42,6 +52,7 @@ const CardsModuleSlidable = ({ cards, handlePress }: CardsModuleSlidableProps) =
                 </Box>}
                 keyExtractor={item => item.id}
                 horizontal={true}
+                onViewableItemsChanged = {onViewableItemsChanged}
                 showsVerticalScrollIndicator={false}
                 //initialScrollIndex={cards.length >= 1 ? 1 : 0}
                 >
