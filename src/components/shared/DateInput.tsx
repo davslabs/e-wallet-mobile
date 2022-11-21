@@ -56,10 +56,6 @@ const DateInput = ({ label, value, onChangeHandler, helpText }: DateInputProps) 
           />
           {show && <DateTimePicker is24Hour value={date} onChange={onChange} />}
         </>
-        /* <Button h={10} m="0" onPress={showDatepicker}>
-          {show && <DateTimePicker is24Hour value={date} onChange={onChange} />}
-          <Icon as={<MaterialIcons name="date-range" />} size={5} color="white" />
-        </Button> */
       }
     />
   );
