@@ -12,7 +12,6 @@ import { useMovements } from './../../hooks/useMovements';
 
 const Payment = ({ navigation }: any) => {
   const { cards } = useCreditCards();
-  const { auth } = useAuth();
   const [destinatario, setDestinatario] = useState('');
   const [motivo, setMotivo] = useState('');
   const [monto, setMonto] = useState(0);
@@ -20,12 +19,8 @@ const Payment = ({ navigation }: any) => {
   const flatListRef = useRef() as any;
   const { addMovement } = useMovements();
 
-  const goToMyTicket = () => {
-    navigation.navigate('Ticket');
-  };
-
-  const goToMyCards = () => {
-    navigation.navigate('MyCards');
+  const goToMyTicket = (movement: NewMovement) => {
+    navigation.navigate('Ticket', movement);
   };
 
   useEffect(() => {
@@ -134,9 +129,11 @@ const Payment = ({ navigation }: any) => {
       <View style={styles.buttonContainer}>
         <ActionButton
           text={`Confirmar Pago`}
-          handlePress={ async () => {
+          handlePress={async () => {
             const newMovement: NewMovement = { descripcion: motivo, monto: monto, tarjeta, fechaHora: new Date() };
             const paymentResponse = await addMovement(newMovement);
+
+            goToMyTicket(paymentResponse);
           }}
         />
       </View>

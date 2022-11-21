@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { Center, Box, ScrollView, Fab, Icon, HStack, Button, VStack, Text, Heading } from 'native-base';
-import { Pressable, StyleProp, ViewStyle, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Center, Box, VStack, Text, Heading } from 'native-base';
+import { Pressable, StyleSheet } from 'react-native';
 import { ActionButton, MiniCreditCard } from '../../components';
+import { useCreditCards } from '../../hooks/useCreditCards';
+import { CreditCard } from '../../types/CreditCard';
+import CategoryMap from '../../components/shared/CreditCard/utils/category-map';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,6 +27,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginVertical: -10,
     justifyContent: 'space-between',
+    fontSize: 15,
   },
   fixToText: {
     margin: 5,
@@ -40,24 +44,43 @@ const styles = StyleSheet.create({
   },
 });
 
-const Ticket = ({ navigation }: any) => {
+const Ticket = ({ route, navigation }: any) => {
   const goToMyHome = () => {
     navigation.navigate('Home');
   };
+
+  const [usedCard, setUsedCard] = useState<CreditCard | undefined>(undefined);
+
+  const { cards } = useCreditCards();
+  const { id, descripcion, monto, tarjeta } = route.params;
+
+  useEffect(() => {
+    if (cards) {
+      const card = cards.find((card) => card.id === tarjeta);
+      setUsedCard(card);
+    }
+  }, [cards]);
 
   return (
     <Center style={styles.container}>
       <Pressable>
         <VStack shadow={10} style={[styles.ticket, { backgroundColor: '#EDBA96', opacity: 0.3, padding: 10 }]}>
-          <Heading style={[styles.title, { padding: 10 }]}>Pago N°#</Heading>
-          <Text style={styles.fixToText}>Motivo: </Text>
-          <Text style={styles.fixToText}>Monto: </Text>
+          <Heading style={[styles.title, { padding: 10 }]}>Confirmación de pago: {id}</Heading>
+          <Text style={styles.fixToText}>Motivo: {descripcion}</Text>
+          <Text style={styles.fixToText}>Monto: ${monto}</Text>
         </VStack>
       </Pressable>
 
       <Center>
         <Box style={styles.card}>
-          <MiniCreditCard cardHolder="Leonel Messi" cardSuffix="3456" bgColor="#383737" type="VISA" />
+          {usedCard && (
+            <MiniCreditCard
+              cardHolder={usedCard.titular}
+              cardSuffix={usedCard.suffix}
+              bgColor={CategoryMap[usedCard.categoria]}
+              type={usedCard.tipo}
+            />
+          )}
         </Box>
       </Center>
 
