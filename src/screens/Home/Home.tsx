@@ -15,9 +15,18 @@ const Home = ({ navigation }: any) => {
   const goToMyCards = () => {
     navigation.navigate('MyCards');
   };
+
   const goToMyMovements = () => {
     navigation.navigate('Movements', { movements });
   };
+  
+  const goToMyPayments = () => {
+    navigation.navigate('Payment');
+  }
+
+  const goToMyTicket = () => {
+    navigation.navigate('Ticket');
+  }
 
   return (
     <Center>
