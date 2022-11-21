@@ -1,14 +1,15 @@
 import { VStack, Box, Center, Heading, View, ScrollView, Text } from 'native-base';
-import { Pressable, StyleSheet, FlatList } from 'react-native';
+import { Pressable, StyleSheet, FlatList, Alert } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import { CreditCard } from './../../components/shared';
 import { ActionButton } from '../../components';
 import { FormInput } from './../../components/shared';
 import { NewMovement } from './../../types/NewMovement';
 import { useCreditCards } from './../../hooks/useCreditCards';
-import useAuth from './../../hooks/useAuth';
 import CategoryMap from './../../components/shared/CreditCard/utils/category-map';
 import { useMovements } from './../../hooks/useMovements';
+import { background } from 'native-base/lib/typescript/theme/styled-system';
+import { setStatusBarBackgroundColor } from 'expo-status-bar';
 
 const Payment = ({ navigation }: any) => {
   const { cards } = useCreditCards();
@@ -71,7 +72,6 @@ const Payment = ({ navigation }: any) => {
               placeholder="Alias/CVU"
               keyboardType="default"
               value={destinatario}
-              helpText="Debe ingresar un destinatario"
               onChangeText={setDestinatario}
             />
 
@@ -88,7 +88,6 @@ const Payment = ({ navigation }: any) => {
               placeholder="Monto $$$"
               keyboardType="number-pad"
               value={monto.toString()}
-              helpText="Monto invalido."
               onChangeText={setMonto}
             />
           </VStack>
@@ -131,9 +130,14 @@ const Payment = ({ navigation }: any) => {
           text={`Confirmar Pago`}
           handlePress={async () => {
             const newMovement: NewMovement = { descripcion: motivo, monto: monto, tarjeta, fechaHora: new Date() };
-            const paymentResponse = await addMovement(newMovement);
-
-            goToMyTicket(paymentResponse);
+            
+            if(!newMovement.monto || newMovement.monto < 0 || !newMovement.descripcion || !destinatario){
+              Alert.alert('Campos incompletos','Por favor complete los campos vacios',[ { text: "OK", } ] );
+            } else {
+              const paymentResponse = await addMovement(newMovement);
+              goToMyTicket(paymentResponse);
+            }
+            
           }}
         />
       </View>
