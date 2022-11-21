@@ -5,6 +5,8 @@ import { Box, Center, Heading, Icon, ScrollView, VStack } from 'native-base';
 import React, { useState } from 'react';
 import CreditCard from '../../components/shared/CreditCard/CreditCard';
 import CategoryMap from '../../components/shared/CreditCard/utils/category-map';
+import { NewCreditCard } from 'types/NewCreditCard';
+import { useCreditCards } from '../../hooks/useCreditCards';
 
 const AddCard = ({ navigation }: any) => {
   const [cardNumber, setCardNumber] = useState('');
@@ -13,6 +15,19 @@ const AddCard = ({ navigation }: any) => {
   const [cardDueDate, setCardDueDate] = useState('');
   const [cardCVV, setCardCVV] = useState('');
   const [cardType, setCardType] = useState('VISA');
+  const { saveCard } = useCreditCards();
+  const addDashes = (value: string) => {
+    let result: string='';
+    if (value) {
+      result = value.replace('^[\d-]+$/g', '');
+    }
+    console.log(result);
+    return result;
+  }
+  const stripDashes = (value: string) => {
+    value.replaceAll('-', '');
+  }
+
   return (
     <ScrollView>
       <Center>
@@ -36,13 +51,14 @@ const AddCard = ({ navigation }: any) => {
             <FormInput
               label="Numero de tarjeta"
               placeholder="XXXX XXXX XXXX XXXX"
+              helpText='Ingrese un número de tarjeta válido'
               keyboardType="numeric"
               value={cardNumber}
               onChangeText={(value) => {
-                setCardNumber(value);
+
                 setCardSuffix(value.slice(-4));
-                let cardTypeName = value.slice(0, 1) === '4' ? 'VISA' : 'MASTERCARD';
-                setCardType(cardTypeName);
+                setCardType(value.slice(0, 1) === '4' ? 'VISA' : 'MASTERCARD');
+                setCardNumber(addDashes(value));
               }}
               iconLeft={<Icon as={<MaterialIcons name="credit-card" />} size={5} marginLeft="2" color="muted.400" />}
             />
@@ -70,7 +86,17 @@ const AddCard = ({ navigation }: any) => {
               onChangeText={(value) => setCardCVV(value.slice(0, 4))}
               iconLeft={<Icon as={<MaterialIcons name="credit-card" />} size={5} ml="2" color="muted.400" />}
             />
-            <ActionButton text="Guardar" handlePress={() => alert('WIP')} />
+            <ActionButton text="Guardar" handlePress={() => {
+              let newCard: NewCreditCard = {
+                categoria: 'CLASSIC',
+                titular: cardHolder,
+                fechaVencimiento: cardDueDate,
+                codigoDeSeguridad: cardCVV,
+                numero: cardNumber,
+                tipo: cardType,
+              }
+              saveCard(newCard);
+            }} />
           </VStack>
         </Box>
       </Center>
