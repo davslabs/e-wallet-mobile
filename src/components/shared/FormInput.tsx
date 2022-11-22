@@ -15,6 +15,7 @@ interface FormInputProps {
   type?: 'text' | 'password' | undefined;
   iconLeft?: React.ReactElement<typeof Icon> | undefined;
   helpText?: string | undefined;
+  maxLength?: number | undefined;
 }
 
 const FormInput = ({
@@ -29,6 +30,7 @@ const FormInput = ({
   width = 'full',
   disabled = false,
   type = 'text',
+  maxLength,
 }: FormInputProps) => {
   return (
     <FormControl width={width}>
@@ -44,6 +46,7 @@ const FormInput = ({
         InputRightElement={icon}
         InputLeftElement={iconLeft}
         isDisabled={disabled}
+        maxLength={maxLength}
       />
       <FormControl.HelperText
         _text={{

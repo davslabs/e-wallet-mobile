@@ -22,13 +22,16 @@ const AddCard = ({ navigation }: any) => {
   const { saveCard } = useCreditCards();
   const toast = useToast();
 
+  const CardMaxLength = 19;
+  const CVVMaxLength = 4;
+
   const cleanCreditCardNumber = (value: string) => {
     let result: string = '';
     if (value) {
-      result = value.replace(/\D/g, '').slice(0, 19);
+      result = value.replace(/\D/g, '').slice(0, CardMaxLength);
     }
     return result;
-  }
+  };
 
   interface ValidationResult {
     success: Boolean;
@@ -36,8 +39,8 @@ const AddCard = ({ navigation }: any) => {
   }
 
   const validateCardData = (card: NewCreditCard): ValidationResult => {
-    const CreditCardRegex = '^[0-9]{10,18}$';
-    const CVVRegex = '^[0-9]{3,4}$';
+    const CreditCardRegex = `^[0-9]{10,${CardMaxLength}}$`;
+    const CVVRegex = `^[0-9]{3,${CVVMaxLength}}$`;
     let result: ValidationResult = { message: '', success: true };
     if (!card.codigoDeSeguridad || !card.codigoDeSeguridad.match(CVVRegex))
       result = { message: 'El codigo de seguridad no es válido', success: false };
@@ -45,10 +48,9 @@ const AddCard = ({ navigation }: any) => {
       result = { message: 'La fecha de vencimiento no es válida', success: false };
     if (!card.tipo || !card.categoria || !card.numero || !card.numero.match(CreditCardRegex))
       result = { message: 'El número de tarjeta no es válido', success: false };
-    if (!card.titular)
-      result = { message: 'Ingrese el titular de la tarjeta', success: false };
+    if (!card.titular) result = { message: 'Ingrese el titular de la tarjeta', success: false };
     return result;
-  }
+  };
 
   const styles = StyleSheet.create({
     title: {
@@ -61,13 +63,11 @@ const AddCard = ({ navigation }: any) => {
       alignItems: 'center',
       justifyContent: 'center',
     },
-
   });
   return (
     <ScrollView>
       <Text style={styles.title}>Agregar tarjeta</Text>
       <Center style={styles.container}>
-
         <Box mt={2}>
           <CreditCard
             cardHolder={cardHolder}
@@ -78,7 +78,6 @@ const AddCard = ({ navigation }: any) => {
           />
         </Box>
         <Box safeArea p="2" maxW={['90%', '90%', '50%']} minW="290" justifyContent="center">
-
           <Heading mt="1" fontWeight="medium" size="xs">
             Por favor, complete los siguientes datos
           </Heading>
@@ -86,10 +85,10 @@ const AddCard = ({ navigation }: any) => {
             <FormInput
               label="Numero de tarjeta"
               placeholder="XXXX XXXX XXXX XXXX"
-              helpText='Ingrese el número de la tarjeta que desea agregar'
+              helpText="Ingrese el número de la tarjeta que desea agregar"
               keyboardType="numeric"
               value={cardNumber}
-
+              maxLength={CardMaxLength}
               onChangeText={(value) => {
                 setCardSuffix(value.slice(-4));
                 setCardType(value.slice(0, 1) === '4' ? 'VISA' : 'MASTERCARD');
@@ -104,20 +103,21 @@ const AddCard = ({ navigation }: any) => {
               placeholder="Nombre Apellido"
               keyboardType="default"
               value={cardHolder}
-              onChangeText={(value) => setCardHolder(value.toUpperCase())}
+              onChangeText={setCardHolder}
               iconLeft={<Icon as={<MaterialIcons name="person" />} size={5} ml="2" color="muted.400" />}
-              helpText='Ingrese el nombre y apellido como se ve en la tarjeta'
+              helpText="Ingrese el nombre y apellido como se ve en la tarjeta"
             />
-            <Box flexDirection={'row'} justifyContent='space-between' marginBottom={3}>
+            <Box flexDirection={'row'} justifyContent="space-between" marginBottom={3}>
               <FormInput
                 label="Vencimiento"
                 placeholder="AAAA-MM"
                 keyboardType="numeric"
+                maxLength={7}
                 width={'45%'}
                 value={cardDueDate}
-                onChangeText={(value) => setCardDueDate(moment(new Date(value)))}
+                onChangeText={value => setCardDueDate(moment(new Date(value)))}
                 iconLeft={<Icon as={<MaterialIcons name="date-range" />} size={5} ml="2" color="muted.400" />}
-                helpText='Año y mes'
+                helpText="Año y mes"
               />
 
               <FormInput
@@ -126,41 +126,45 @@ const AddCard = ({ navigation }: any) => {
                 keyboardType="numeric"
                 width={'45%'}
                 value={cardCVV}
-                onChangeText={(value) => setCardCVV(value.slice(0, 4))}
+                maxLength={CVVMaxLength}
+                onChangeText={setCardCVV}
                 iconLeft={<Icon as={<MaterialIcons name="credit-card" />} size={5} ml="2" color="muted.400" />}
-                helpText='Código de seguridad'
+                helpText="Código de seguridad"
               />
             </Box>
-            <ActionButton text="Guardar" handlePress={() => {
-              let card: NewCreditCard = {
-                categoria: cardCategory,
-                titular: cardHolder,
-                fechaVencimiento: cardDueDate,
-                codigoDeSeguridad: cardCVV,
-                numero: cardNumber,
-                tipo: cardType,
-              }
-              let result: ValidationResult;
-              result = validateCardData(card)
-              if (result.success) {
-                saveCard(card).then((response) => {
-                  if (response) {
-                    navigation.navigate('MyCards');
-                  } else {
-                    result = {
-                      success: false,
-                      message: 'Error al guardar la tarjeta'
+            <ActionButton
+              text="Guardar"
+              handlePress={() => {
+                let card: NewCreditCard = {
+                  categoria: cardCategory,
+                  titular: cardHolder,
+                  fechaVencimiento: cardDueDate,
+                  codigoDeSeguridad: cardCVV,
+                  numero: cardNumber,
+                  tipo: cardType,
+                };
+                let result: ValidationResult;
+                result = validateCardData(card);
+                if (result.success) {
+                  saveCard(card).then((response) => {
+                    if (response) {
+                      navigation.navigate('MyCards');
+                    } else {
+                      result = {
+                        success: false,
+                        message: 'Error al guardar la tarjeta',
+                      };
                     }
-                  }
-                });
-              }
-              if (!result.success) {
-                toast.show({
-                  description: result.message,
-                  placement: 'top'
-                });
-              }
-            }} />
+                  });
+                }
+                if (!result.success) {
+                  toast.show({
+                    description: result.message,
+                    placement: 'top',
+                  });
+                }
+              }}
+            />
           </VStack>
         </Box>
       </Center>
