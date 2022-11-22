@@ -1,0 +1,4 @@
+{
+  "*.ts": "eslint --fix --ignore-pattern 'src/**/*.d.ts'",
+  "*.{json,md}": "prettier --write"
+}
