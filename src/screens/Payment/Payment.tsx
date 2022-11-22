@@ -1,12 +1,11 @@
 import { VStack, Box, Center, Heading, View, ScrollView, Text } from 'native-base';
-import { Pressable, StyleSheet, FlatList } from 'react-native';
+import { Pressable, StyleSheet, FlatList, Alert } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import { CreditCard } from './../../components/shared';
 import { ActionButton } from '../../components';
 import { FormInput } from './../../components/shared';
 import { NewMovement } from './../../types/NewMovement';
 import { useCreditCards } from './../../hooks/useCreditCards';
-import useAuth from './../../hooks/useAuth';
 import CategoryMap from './../../components/shared/CreditCard/utils/category-map';
 import { useMovements } from './../../hooks/useMovements';
 
@@ -14,7 +13,7 @@ const Payment = ({ navigation }: any) => {
   const { creditCards } = useCreditCards();
   const [destinatario, setDestinatario] = useState('');
   const [motivo, setMotivo] = useState('');
-  const [monto, setMonto] = useState(0);
+  const [monto, setMonto] = useState('');
   const [tarjeta, setTarjeta] = useState('');
   const flatListRef = useRef() as any;
   const { addMovement } = useMovements();
@@ -29,10 +28,10 @@ const Payment = ({ navigation }: any) => {
 
   const styles = StyleSheet.create({
     title: {
-      marginTop: 30,
+      marginTop: 10,
       fontSize: 20,
       fontWeight: '200',
-      marginLeft: 30,
+      marginLeft: 35,
     },
     container: {
       flexDirection: 'row',
@@ -55,6 +54,10 @@ const Payment = ({ navigation }: any) => {
     flatListRef.current.scrollToIndex({ animated: true, index });
   };
 
+  const defaultValue = () => {
+    setDestinatario(''), setMonto(''), setMotivo('');
+  };
+
   return (
     <ScrollView>
       <Heading style={styles.title} size="lg" fontWeight="semibold">
@@ -71,7 +74,6 @@ const Payment = ({ navigation }: any) => {
               placeholder="Alias/CVU"
               keyboardType="default"
               value={destinatario}
-              helpText="Debe ingresar un destinatario"
               onChangeText={setDestinatario}
             />
 
@@ -87,8 +89,7 @@ const Payment = ({ navigation }: any) => {
               label="Monto"
               placeholder="Monto $$$"
               keyboardType="number-pad"
-              value={monto.toString()}
-              helpText="Monto invalido."
+              value={monto}
               onChangeText={setMonto}
             />
           </VStack>
@@ -104,8 +105,8 @@ const Payment = ({ navigation }: any) => {
           ref={flatListRef}
           renderItem={({ item, index }) => (
             <Pressable
-              style={{ padding: 5, marginLeft: 20, marginRight: 20 }}
-              onPress={() => {
+              style={{ marginTop: 10, marginLeft: 35, marginRight: 20 }}
+              onPressIn={() => {
                 scrollToIndex(index);
                 setTarjeta(item.id);
               }}
@@ -121,7 +122,6 @@ const Payment = ({ navigation }: any) => {
           )}
           keyExtractor={(item) => item.id}
           horizontal={true}
-          //onViewableItemsChanged = {onViewableItemsChanged}
           showsVerticalScrollIndicator={false}
         ></FlatList>
       </Center>
@@ -130,10 +130,20 @@ const Payment = ({ navigation }: any) => {
         <ActionButton
           text={`Confirmar Pago`}
           handlePress={async () => {
-            const newMovement: NewMovement = { descripcion: motivo, monto: monto, tarjeta, fechaHora: new Date() };
-            const paymentResponse = await addMovement(newMovement);
+            const newMovement: NewMovement = {
+              descripcion: motivo,
+              monto: parseInt(monto, 10),
+              tarjeta,
+              fechaHora: new Date(),
+            };
 
-            goToMyTicket(paymentResponse);
+            if (!newMovement.monto || newMovement.monto < 0 || !newMovement.descripcion || !destinatario) {
+              Alert.alert('Campos incompletos', 'Por favor complete los campos vacios', [{ text: 'OK' }]);
+            } else {
+              const paymentResponse = await addMovement(newMovement);
+              defaultValue();
+              goToMyTicket(paymentResponse);
+            }
           }}
         />
       </View>

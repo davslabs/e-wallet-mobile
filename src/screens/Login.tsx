@@ -60,10 +60,10 @@ const Login = ({ navigation }: any) => {
               color: 'warmGray.200',
             }}
           >
-            No tengo cuenta.{' '}
+            No tenés cuenta?
           </Text>
           <Button variant="link" onPress={() => navigation.navigate('SignUp')}>
-            Registrar
+            Registrate
           </Button>
         </VStack>
       </Center>
