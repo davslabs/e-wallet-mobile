@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, VStack, HStack } from 'native-base';
 import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import { MasterCardIcon, VisaIcon } from './icons';
 import moment from 'moment';
+import { MasterCardIcon, VisaIcon } from './icons';
 
 interface CreditCardProps {
   cardHolder: string;

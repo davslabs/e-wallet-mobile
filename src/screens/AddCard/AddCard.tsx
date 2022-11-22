@@ -1,15 +1,13 @@
-import MaterialIcons from '@expo/vector-icons/build/MaterialIcons';
-import ActionButton from '../../components/shared/ActionButton';
-import FormInput from '../../components/shared/FormInput';
-import CategoryMap from '../../components/shared/CreditCard/utils/category-map';
-import CategoryNumberMap from '../../components/shared/CreditCard/utils/category-number-map';
-import CreditCard from '../../components/shared/CreditCard/CreditCard';
-import { Box, Center, Heading, Icon, Text, ScrollView, VStack, useToast } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { NewCreditCard } from 'types/NewCreditCard';
-import { useCreditCards } from '../../hooks/useCreditCards';
+import { Box, Center, Heading, Icon, Text, ScrollView, VStack, useToast } from 'native-base';
+import MaterialIcons from '@expo/vector-icons/build/MaterialIcons';
 import moment from 'moment';
+import { NewCreditCard } from 'types/NewCreditCard';
+import { CreditCard, ActionButton, FormInput } from '../../components/shared';
+import CategoryMap from '../../components/shared/CreditCard/utils/category-map';
+import CategoryNumberMap from '../../components/shared/CreditCard/utils/category-number-map';
+import { useCreditCards } from '../../hooks/useCreditCards';
 
 const AddCard = ({ navigation }: any) => {
   const [cardNumber, setCardNumber] = useState('');
@@ -26,7 +24,7 @@ const AddCard = ({ navigation }: any) => {
   const CVVMaxLength = 4;
 
   const cleanCreditCardNumber = (value: string) => {
-    let result: string = '';
+    let result = '';
     if (value) {
       result = value.replace(/\D/g, '').slice(0, CardMaxLength);
     }
@@ -34,7 +32,7 @@ const AddCard = ({ navigation }: any) => {
   };
 
   interface ValidationResult {
-    success: Boolean;
+    success: boolean;
     message: string;
   }
 
@@ -115,7 +113,7 @@ const AddCard = ({ navigation }: any) => {
                 maxLength={7}
                 width={'45%'}
                 value={cardDueDate}
-                onChangeText={value => setCardDueDate(moment(new Date(value)))}
+                onChangeText={(value) => setCardDueDate(moment(new Date(value)))}
                 iconLeft={<Icon as={<MaterialIcons name="date-range" />} size={5} ml="2" color="muted.400" />}
                 helpText="Año y mes"
               />

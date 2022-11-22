@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Icon, IconButton } from 'native-base';
+import { IconButton } from 'native-base';
 import { Platform } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { MaterialIcons } from '@expo/vector-icons';

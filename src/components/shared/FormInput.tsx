@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormControl, Text, Input } from 'native-base';
-import { KeyboardTypeOptions, StyleProp, ViewStyle } from 'react-native';
+import { KeyboardTypeOptions } from 'react-native';
 import PressableIcon from './PressableIcon';
 
 interface FormInputProps {

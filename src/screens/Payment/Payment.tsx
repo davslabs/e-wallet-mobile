@@ -1,13 +1,11 @@
 import { VStack, Box, Center, Heading, View, ScrollView, Text, useToast } from 'native-base';
 import { Pressable, StyleSheet, FlatList } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
-import { CreditCard } from './../../components/shared';
-import { ActionButton } from '../../components';
-import { FormInput } from './../../components/shared';
-import { NewMovement } from './../../types/NewMovement';
-import { useCreditCards } from './../../hooks/useCreditCards';
-import CategoryMap from './../../components/shared/CreditCard/utils/category-map';
-import { useMovements } from './../../hooks/useMovements';
+import { CreditCard, ActionButton, FormInput } from '../../components';
+import { NewMovement } from '../../types/NewMovement';
+import { useCreditCards } from '../../hooks/useCreditCards';
+import CategoryMap from '../../components/shared/CreditCard/utils/category-map';
+import { useMovements } from '../../hooks/useMovements';
 
 const Payment = ({ navigation }: any) => {
   const { creditCards } = useCreditCards();
@@ -59,7 +57,7 @@ const Payment = ({ navigation }: any) => {
     setDestinatario(''), setMonto(''), setMotivo('');
   };
   interface ValidationResult {
-    success: Boolean;
+    success: boolean;
     message: string;
   }
 
@@ -67,16 +65,12 @@ const Payment = ({ navigation }: any) => {
     const CreditCardRegex = '^[0-9]{10,18}$';
     const CVVRegex = '^[0-9]{3,4}$';
     let result: ValidationResult = { message: '', success: true };
-    if (pay.destinatario.length < 5)
-      result = { message: 'Ingrese un Alias o CVU válido', success: false };
-    if (!pay.descripcion)
-      result = { message: 'Ingrese el motivo del pago', success: false };
-    if (!pay.monto || pay.monto <= 0)
-      result = { message: 'El monto ingresado no es válido', success: false };
-    if (!pay.tarjeta)
-      result = { message: 'Seleccione una tarjeta para realizar el pago', success: false };
+    if (pay.destinatario.length < 5) result = { message: 'Ingrese un Alias o CVU válido', success: false };
+    if (!pay.descripcion) result = { message: 'Ingrese el motivo del pago', success: false };
+    if (!pay.monto || pay.monto <= 0) result = { message: 'El monto ingresado no es válido', success: false };
+    if (!pay.tarjeta) result = { message: 'Seleccione una tarjeta para realizar el pago', success: false };
     return result;
-  }
+  };
 
   return (
     <ScrollView>
@@ -140,15 +134,15 @@ const Payment = ({ navigation }: any) => {
               />
             </Pressable>
           )}
-          keyExtractor={(item) => item.id}
-          horizontal={true}
+          keyExtractor={item => item.id}
+          horizontal
           showsVerticalScrollIndicator={false}
-        ></FlatList>
+        />
       </Center>
 
       <View style={styles.buttonContainer}>
         <ActionButton
-          text={`Confirmar Pago`}
+          text="Confirmar Pago"
           handlePress={async () => {
             const newMovement: NewMovement = {
               destinatario: destinatario,
@@ -165,14 +159,14 @@ const Payment = ({ navigation }: any) => {
               } else {
                 result = {
                   success: false,
-                  message: 'Error al realizar el pago'
-                }
+                  message: 'Error al realizar el pago',
+                };
               }
             }
             if (!result.success) {
               toast.show({
                 description: result.message,
-                placement: 'top'
+                placement: 'top',
               });
             }
           }}
