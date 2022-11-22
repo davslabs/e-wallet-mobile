@@ -8,14 +8,12 @@ import { NewMovement } from './../../types/NewMovement';
 import { useCreditCards } from './../../hooks/useCreditCards';
 import CategoryMap from './../../components/shared/CreditCard/utils/category-map';
 import { useMovements } from './../../hooks/useMovements';
-import { background } from 'native-base/lib/typescript/theme/styled-system';
-import { setStatusBarBackgroundColor } from 'expo-status-bar';
 
 const Payment = ({ navigation }: any) => {
   const { cards } = useCreditCards();
-  const [destinatario, setDestinatario] = useState('');
-  const [motivo, setMotivo] = useState('');
-  const [monto, setMonto] = useState(0);
+  let [destinatario, setDestinatario] = useState('');
+  let [motivo, setMotivo] = useState('');
+  let [monto, setMonto] = useState(Number);
   const [tarjeta, setTarjeta] = useState('');
   const flatListRef = useRef() as any;
   const { addMovement } = useMovements();
@@ -30,10 +28,10 @@ const Payment = ({ navigation }: any) => {
 
   const styles = StyleSheet.create({
     title: {
-      marginTop: 30,
+      marginTop: 10,
       fontSize: 20,
       fontWeight: '200',
-      marginLeft: 30,
+      marginLeft: 35,
     },
     container: {
       flexDirection: 'row',
@@ -54,6 +52,10 @@ const Payment = ({ navigation }: any) => {
 
   const scrollToIndex = (index: number) => {
     flatListRef.current.scrollToIndex({ animated: true, index });
+  };
+
+  const defaultValue = () => {
+    setDestinatario(''), setMonto(Number), setMotivo('');
   };
 
   return (
@@ -103,8 +105,8 @@ const Payment = ({ navigation }: any) => {
           ref={flatListRef}
           renderItem={({ item, index }) => (
             <Pressable
-              style={{ padding: 5, marginLeft: 20, marginRight: 20 }}
-              onPress={() => {
+              style={{ marginTop: 10, marginLeft: 35, marginRight:20 }}
+              onPressIn={() => {
                 scrollToIndex(index);
                 setTarjeta(item.id);
               }}
@@ -120,7 +122,6 @@ const Payment = ({ navigation }: any) => {
           )}
           keyExtractor={(item) => item.id}
           horizontal={true}
-          //onViewableItemsChanged = {onViewableItemsChanged}
           showsVerticalScrollIndicator={false}
         ></FlatList>
       </Center>
@@ -130,14 +131,14 @@ const Payment = ({ navigation }: any) => {
           text={`Confirmar Pago`}
           handlePress={async () => {
             const newMovement: NewMovement = { descripcion: motivo, monto: monto, tarjeta, fechaHora: new Date() };
-            
-            if(!newMovement.monto || newMovement.monto < 0 || !newMovement.descripcion || !destinatario){
-              Alert.alert('Campos incompletos','Por favor complete los campos vacios',[ { text: "OK", } ] );
+
+            if (!newMovement.monto || newMovement.monto < 0 || !newMovement.descripcion || !destinatario) {
+              Alert.alert('Campos incompletos', 'Por favor complete los campos vacios', [{ text: 'OK' }]);
             } else {
               const paymentResponse = await addMovement(newMovement);
+              defaultValue();
               goToMyTicket(paymentResponse);
             }
-            
           }}
         />
       </View>
