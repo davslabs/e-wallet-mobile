@@ -1,4 +1,4 @@
-# Template de React Native para el proyecto Final
+# E-WALLET MOBILE
 
 ## Team Agreements
 
