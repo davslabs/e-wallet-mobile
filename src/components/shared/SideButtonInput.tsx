@@ -1,7 +1,6 @@
 import React from 'react';
-import { FormControl, Text, Stack, InputGroup, Input, InputRightAddon, Button } from 'native-base';
+import { FormControl, Text, Stack, InputGroup, Input, InputRightAddon, IconButton } from 'native-base';
 import { KeyboardTypeOptions, StyleProp, ViewStyle } from 'react-native';
-import Form from './PressableIcon';
 
 interface FormInputProps {
   label: string;
@@ -10,7 +9,7 @@ interface FormInputProps {
   onChangeText: (...args: any[]) => void;
   type?: 'text' | 'password' | undefined;
   helpText?: string | undefined;
-  sideButton?: React.ReactElement<typeof Button> | undefined;
+  sideButton?: any | undefined;
 }
 
 const SideButtonInput = ({
@@ -36,10 +35,10 @@ const SideButtonInput = ({
             type={type}
             isDisabled
             w={{
-              base: '84%',
+              base: '88%',
             }}
           />
-          <InputRightAddon bg="primary.600" w="16%" p="0" children={sideButton} />
+          <InputRightAddon bg="primary.600" w="12%" p="0" children={sideButton} />
         </InputGroup>
       </Stack>
 

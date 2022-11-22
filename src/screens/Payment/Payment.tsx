@@ -10,10 +10,10 @@ import CategoryMap from './../../components/shared/CreditCard/utils/category-map
 import { useMovements } from './../../hooks/useMovements';
 
 const Payment = ({ navigation }: any) => {
-  const { cards } = useCreditCards();
-  let [destinatario, setDestinatario] = useState('');
-  let [motivo, setMotivo] = useState('');
-  let [monto, setMonto] = useState(Number);
+  const { creditCards } = useCreditCards();
+  const [destinatario, setDestinatario] = useState('');
+  const [motivo, setMotivo] = useState('');
+  const [monto, setMonto] = useState('');
   const [tarjeta, setTarjeta] = useState('');
   const flatListRef = useRef() as any;
   const { addMovement } = useMovements();
@@ -23,8 +23,8 @@ const Payment = ({ navigation }: any) => {
   };
 
   useEffect(() => {
-    if (cards && cards.length && cards.length > 0) setTarjeta(cards[0].id);
-  }, [cards]);
+    if (creditCards && creditCards.length && creditCards.length > 0) setTarjeta(creditCards[0].id);
+  }, [creditCards]);
 
   const styles = StyleSheet.create({
     title: {
@@ -55,7 +55,7 @@ const Payment = ({ navigation }: any) => {
   };
 
   const defaultValue = () => {
-    setDestinatario(''), setMonto(Number), setMotivo('');
+    setDestinatario(''), setMonto(''), setMotivo('');
   };
 
   return (
@@ -89,7 +89,7 @@ const Payment = ({ navigation }: any) => {
               label="Monto"
               placeholder="Monto $$$"
               keyboardType="number-pad"
-              value={monto.toString()}
+              value={monto}
               onChangeText={setMonto}
             />
           </VStack>
@@ -100,12 +100,12 @@ const Payment = ({ navigation }: any) => {
       </Box>
       <Center>
         <FlatList
-          data={cards}
+          data={creditCards}
           viewabilityConfig={viewabilityConfig}
           ref={flatListRef}
           renderItem={({ item, index }) => (
             <Pressable
-              style={{ marginTop: 10, marginLeft: 35, marginRight:20 }}
+              style={{ marginTop: 10, marginLeft: 35, marginRight: 20 }}
               onPressIn={() => {
                 scrollToIndex(index);
                 setTarjeta(item.id);
@@ -130,7 +130,12 @@ const Payment = ({ navigation }: any) => {
         <ActionButton
           text={`Confirmar Pago`}
           handlePress={async () => {
-            const newMovement: NewMovement = { descripcion: motivo, monto: monto, tarjeta, fechaHora: new Date() };
+            const newMovement: NewMovement = {
+              descripcion: motivo,
+              monto: parseInt(monto, 10),
+              tarjeta,
+              fechaHora: new Date(),
+            };
 
             if (!newMovement.monto || newMovement.monto < 0 || !newMovement.descripcion || !destinatario) {
               Alert.alert('Campos incompletos', 'Por favor complete los campos vacios', [{ text: 'OK' }]);

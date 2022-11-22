@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { CreditCard } from '../types/CreditCard';
+import { NewCreditCard } from '../types/NewCreditCard';
 import useAxiosPrivate from './useAxios';
+import useUser from './useUser';
 
 export const useCreditCards = () => {
-  const [cards, setCards] = useState<CreditCard[]>([]);
+  const { creditCards, saveCreditCards, updateCreditCardList } = useUser();
   const [isLoading, setIsLoading] = useState(true);
   const axios = useAxiosPrivate();
 
@@ -11,7 +12,8 @@ export const useCreditCards = () => {
     setIsLoading(true);
     try {
       const { data } = await axios.get('/tarjeta');
-      setCards(data);
+
+      saveCreditCards(data);
     } catch (error: any) {
       console.error(error);
     } finally {
@@ -19,9 +21,33 @@ export const useCreditCards = () => {
     }
   }, []);
 
+  const saveCard = async (card: NewCreditCard) => {
+    setIsLoading(true);
+    try {
+      const { data } = await axios.post('/tarjeta', card, {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      });
+
+      updateCreditCardList(data);
+    } catch (error: any) {
+      if (error?.response) {
+        console.error(`Error al agregar tarjeta: ${error?.response?.data?.error.message}`);
+      } else {
+        console.error(error.message);
+      }
+
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+
+    return true;
+  };
+
   useEffect(() => {
     getCards();
   }, [getCards]);
 
-  return { cards, isLoading, getCards };
+  return { creditCards, isLoading, getCards, saveCard };
 };
