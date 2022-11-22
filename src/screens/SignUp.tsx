@@ -44,7 +44,7 @@ const SignUp = () => {
               iconLeft={<Icon as={<MaterialIcons name="alternate-email" />} size={5} ml="2" color="muted.400" />}
             />
             <DateInput
-              label="Fecha de nacimiento 2"
+              label="Fecha de nacimiento"
               value={fechaNacimiento}
               helpText="Deberá ser mayor a 18 años para registrarse."
               onChangeHandler={setFechaNacimiento}

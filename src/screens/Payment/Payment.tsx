@@ -1,5 +1,5 @@
-import { VStack, Box, Center, Heading, View, ScrollView, Text } from 'native-base';
-import { Pressable, StyleSheet, FlatList, Alert } from 'react-native';
+import { VStack, Box, Center, Heading, View, ScrollView, Text, useToast } from 'native-base';
+import { Pressable, StyleSheet, FlatList } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import { CreditCard } from './../../components/shared';
 import { ActionButton } from '../../components';
@@ -17,6 +17,7 @@ const Payment = ({ navigation }: any) => {
   const [tarjeta, setTarjeta] = useState('');
   const flatListRef = useRef() as any;
   const { addMovement } = useMovements();
+  const toast = useToast();
 
   const goToMyTicket = (movement: NewMovement) => {
     navigation.navigate('Ticket', movement);
@@ -57,6 +58,25 @@ const Payment = ({ navigation }: any) => {
   const defaultValue = () => {
     setDestinatario(''), setMonto(''), setMotivo('');
   };
+  interface ValidationResult {
+    success: Boolean;
+    message: string;
+  }
+
+  const validatePaymentData = (pay: NewMovement): ValidationResult => {
+    const CreditCardRegex = '^[0-9]{10,18}$';
+    const CVVRegex = '^[0-9]{3,4}$';
+    let result: ValidationResult = { message: '', success: true };
+    if (pay.destinatario.length < 5)
+      result = { message: 'Ingrese un Alias o CVU válido', success: false };
+    if (!pay.descripcion)
+      result = { message: 'Ingrese el motivo del pago', success: false };
+    if (!pay.monto || pay.monto <= 0)
+      result = { message: 'El monto ingresado no es válido', success: false };
+    if (!pay.tarjeta)
+      result = { message: 'Seleccione una tarjeta para realizar el pago', success: false };
+    return result;
+  }
 
   return (
     <ScrollView>
@@ -131,18 +151,29 @@ const Payment = ({ navigation }: any) => {
           text={`Confirmar Pago`}
           handlePress={async () => {
             const newMovement: NewMovement = {
+              destinatario: destinatario,
               descripcion: motivo,
               monto: parseInt(monto, 10),
-              tarjeta,
-              fechaHora: new Date(),
+              tarjeta: tarjeta,
             };
-
-            if (!newMovement.monto || newMovement.monto < 0 || !newMovement.descripcion || !destinatario) {
-              Alert.alert('Campos incompletos', 'Por favor complete los campos vacios', [{ text: 'OK' }]);
-            } else {
+            let result: ValidationResult = validatePaymentData(newMovement);
+            if (result.success) {
               const paymentResponse = await addMovement(newMovement);
-              defaultValue();
-              goToMyTicket(paymentResponse);
+              if (paymentResponse) {
+                defaultValue();
+                goToMyTicket(paymentResponse);
+              } else {
+                result = {
+                  success: false,
+                  message: 'Error al realizar el pago'
+                }
+              }
+            }
+            if (!result.success) {
+              toast.show({
+                description: result.message,
+                placement: 'top'
+              });
             }
           }}
         />
