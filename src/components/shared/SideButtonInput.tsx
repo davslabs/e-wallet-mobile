@@ -1,6 +1,6 @@
 import React from 'react';
-import { FormControl, Text, Stack, InputGroup, Input, InputRightAddon, IconButton } from 'native-base';
-import { KeyboardTypeOptions, StyleProp, ViewStyle } from 'react-native';
+import { FormControl, Text, Stack, InputGroup, Input, InputRightAddon } from 'native-base';
+import { KeyboardTypeOptions } from 'react-native';
 
 interface FormInputProps {
   label: string;

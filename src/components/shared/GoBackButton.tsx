@@ -1,5 +1,4 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { HStack } from 'native-base';
 import React from 'react';
 import { Pressable } from 'react-native';
 

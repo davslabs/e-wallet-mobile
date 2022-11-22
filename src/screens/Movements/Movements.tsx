@@ -13,7 +13,6 @@ import {
   ScrollView,
   View,
   Icon,
-  InputLeftAddon,
 } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { RouteProp } from '@react-navigation/native';

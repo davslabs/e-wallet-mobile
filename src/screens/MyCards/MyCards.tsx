@@ -1,11 +1,11 @@
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { Center, Box, ScrollView, Fab, Icon, View } from 'native-base';
+import AntDesign from '@expo/vector-icons/build/AntDesign';
 import { MiniCreditCard } from '../../components';
 import { CreditCard as CreditCardType } from '../../types/CreditCard';
-import React from 'react';
-import { Center, Box, ScrollView, Fab, Icon, View } from 'native-base';
-import { StyleSheet } from 'react-native';
 import { useCreditCards } from '../../hooks/useCreditCards';
 import CategoryMap from '../../components/shared/CreditCard/utils/category-map';
-import AntDesign from '@expo/vector-icons/build/AntDesign';
 
 const styles = StyleSheet.create({
   container: {

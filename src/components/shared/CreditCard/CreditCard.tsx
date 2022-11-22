@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, VStack, HStack } from 'native-base';
 import { StyleSheet, StyleProp, ViewStyle } from 'react-native';
-import { MasterCardIcon, VisaIcon } from './icons';
 import moment from 'moment';
+import { MasterCardIcon, VisaIcon } from './icons';
 
 interface CreditCardProps {
   cardHolder: string;
@@ -49,13 +49,6 @@ const styles = StyleSheet.create({
 });
 
 const CreditCard = ({ cardHolder, dueDate, cardSuffix, bgColor, type, style }: CreditCardProps) => {
-  const checkDueMoment = (dueDate) => {
-    const dueMoment = moment(dueDate);
-    const Timezone = dueMoment.format('Z').slice(0, 3);
-    dueMoment.add(-Timezone, 'hours');
-    return dueMoment;
-  };
-  const dueMoment = checkDueMoment(dueDate);
   const dot = [styles.dot, { backgroundColor: styles.text.color }];
   return (
     <VStack shadow={7} style={[styles.card, { backgroundColor: bgColor }, style]}>
@@ -73,9 +66,8 @@ const CreditCard = ({ cardHolder, dueDate, cardSuffix, bgColor, type, style }: C
         <Text style={styles.text}>{cardSuffix}</Text>
       </HStack>
       <HStack style={styles.footerContainer}>
-        <Text style={styles.text}>{cardHolder.toUpperCase()}</Text>
-        <Text style={styles.text}>{dueMoment.format('YYYY/MM')}</Text>
-        {checkDueMoment}
+        <Text style={styles.text}>{cardHolder}</Text>
+        <Text style={styles.text}>{moment(dueDate).format('YYYY/MM')}</Text>
       </HStack>
     </VStack>
   );

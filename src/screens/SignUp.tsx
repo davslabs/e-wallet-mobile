@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Center, Box, Heading, VStack, Icon, ScrollView } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import useAuth from '../hooks/useAuth';
-import { ActionButton, FormInput, DateInput, PressableIcon, SideButtonInput, EarthOne } from '../components/shared';
+import { ActionButton, FormInput, DateInput, PressableIcon, EarthOne } from '../components/shared';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
